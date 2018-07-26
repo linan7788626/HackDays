@@ -1,0 +1,8 @@
+I just collected the codes for generating lensed host galaxies for TwinklesII, and it is attached below.
+In principle, you can run it as:
+
+python2.7 generating_lensed_hosts.py
+
+All input catalogs are saved in the directory of ./data, and the outputs are fits stamps with the needed information in their file names (in the directory of ./output_fits). You need to install Astropy for running the code.
+
+If you would have some time, please try to run the code on your machines; once it works, we can chat in more details about the outputs. Meanwhile, I will update the README.md file. Should you have any questions, please feel free to let me know. Thanks.s

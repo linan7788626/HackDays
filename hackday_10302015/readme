@@ -1,0 +1,5 @@
+ds9 -geometry 900x740 $fitsfile -scale limits 0.0 4.0 -zoom to fit -view colorbar no -saveimage png $fitsfile:r.png -exit
+
+mencoder mf://*.png -mf w=800:h=600:fps=5:type=png -ovc raw -oac copy -o output.avi
+
+py double_sources.py source23/17083_F606W_0.3556_masked.fits source1/2513_F606W_0.425_masked.fits 

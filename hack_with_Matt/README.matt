@@ -1,0 +1,7 @@
+RUNNER.SH is the list of commands used to run phosim to generate the six-band images of the single galaxy.
+Note that several files are required here (looking at the first line):
+	(1) INSTANCE.HWM.0 (the instance file)
+	(2) TRIM.TXT (the physics override commands, mostly to turn off background)
+	(3) Note that the SED files are in the directory you are running in, inside the data/SEDs folder
+	(4) I used a specific working directory (-w) and outdir (-o).  If you omit those, the result will come out in the folder called output.  
+LENS.SH is the command used to run phosim to generate the image of the fits stamp of the lens.

@@ -1,0 +1,19 @@
+Opsim_obshistid 1974672
+SIM_SEED 250830657
+Unrefracted_RA 99.1359079
+Unrefracted_Dec -50.8598592
+Opsim_moonra 238.176435
+Opsim_moondec -17.0369
+Opsim_rotskypos 60.3182465
+Opsim_filter 0
+Opsim_rawseeing 0.488714
+Opsim_sunalt -33.3318197
+Opsim_moonalt -43.289196
+Opsim_dist2moon 103.209982
+Opsim_moonphase 3.461385
+Opsim_expmjd 52256.1326
+Opsim_altitude 53.4436124
+Opsim_azimuth 136.921672
+exptime 30
+airmass 1.244913
+object 0 99.1359 -50.8599 20 ../sky/sed_flat.txt 0 0 0 0 0 0 output_double.fits 0.2 0.0 none

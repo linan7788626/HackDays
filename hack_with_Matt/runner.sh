@@ -1,0 +1,6 @@
+./phosim instance.hwm.0 -s 'R22_S11' -c trim.txt --sed data/SEDs -w /home/s1/mwiesner/phosim/phosim_release/workdir/work0 -o /home/s1/mwiesner/phosim/phosim_release/outdir/out0
+./phosim instance.hwm.1 -s 'R22_S11' -c trim.txt --sed data/SEDs -w /home/s1/mwiesner/phosim/phosim_release/workdir/work1 -o /home/s1/mwiesner/phosim/phosim_release/outdir/out1
+./phosim instance.hwm.2 -s 'R22_S11' -c trim.txt --sed data/SEDs -w /home/s1/mwiesner/phosim/phosim_release/workdir/work2 -o /home/s1/mwiesner/phosim/phosim_release/outdir/out2
+./phosim instance.hwm.3 -s 'R22_S11' -c trim.txt --sed data/SEDs -w /home/s1/mwiesner/phosim/phosim_release/workdir/work3 -o /home/s1/mwiesner/phosim/phosim_release/outdir/out3
+./phosim instance.hwm.4 -s 'R22_S11' -c trim.txt --sed data/SEDs -w /home/s1/mwiesner/phosim/phosim_release/workdir/work4 -o /home/s1/mwiesner/phosim/phosim_release/outdir/out4
+./phosim instance.hwm.5 -s 'R22_S11' -c trim.txt --sed data/SEDs -w /home/s1/mwiesner/phosim/phosim_release/workdir/work5 -o /home/s1/mwiesner/phosim/phosim_release/outdir/out5
