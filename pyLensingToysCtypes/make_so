@@ -1,0 +1,2 @@
+gcc -Wall -fPIC -c ./all_cv_test.c
+gcc -shared ./all_cv_test.o -o ./liball_cv_test.so
