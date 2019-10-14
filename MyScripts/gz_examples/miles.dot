@@ -1,0 +1,1177 @@
+strict graph miles_dat {
+	graph [label=miles_dat,
+		outputorder=edgesfirst,
+		ratio=1.0
+	];
+	node [fixedsize=true,
+		fontsize=8,
+		label="\N",
+		shape=circle,
+		style=filled
+	];
+	edge [color="#1100FF",
+		style="setlinewidth(2)"
+	];
+	"Youngstown, OH"	 [fillcolor="#000056",
+		height=0.169879368965,
+		label=" ",
+		pos="-106.500000,211.000000)",
+		width=0.169879368965];
+	"Yankton, SD"	 [fillcolor="#00001c",
+		height=0.0547973539507,
+		label=" ",
+		pos="-273.900000,228.800000)",
+		width=0.0547973539507];
+	"Yakima, WA"	 [fillcolor="#000039",
+		height=0.111608691418,
+		label=" ",
+		pos="-505.100000,266.000000)",
+		width=0.111608691418];
+	"Worcester, MA"	 [fillcolor="#000066",
+		height=0.201121232096,
+		label=" ",
+		pos="-18.000000,222.700000)",
+		width=0.201121232096];
+	"Wisconsin Dells, WI"	 [fillcolor="#0000 c",
+		height=0.0251047804213,
+		label=" ",
+		pos="-197.700000,236.300000)",
+		width=0.0251047804213];
+	"Winston-Salem, NC"	 [fillcolor="#00005c",
+		height=0.181579872233,
+		label=" ",
+		pos="-102.500000,161.000000)",
+		width=0.181579872233];
+	"Winnipeg, MB"	 [fillcolor="#0000c0",
+		height=0.375657090975,
+		label=" ",
+		pos="-271.500000,298.800000)",
+		width=0.375657090975];
+	"Winchester, VA"	 [fillcolor="#000024",
+		height=0.0710932486246,
+		label=" ",
+		pos="-81.600000,191.900000)",
+		width=0.0710932486246];
+	"Winchester, VA" -- "Youngstown, OH";
+	"Winchester, VA" -- "Winston-Salem, NC";
+	"Wilmington, NC"	 [fillcolor="#00005f",
+		height=0.186573041997,
+		label=" ",
+		pos="-79.200000,142.400000)",
+		width=0.186573041997];
+	"Wilmington, NC" -- "Winston-Salem, NC";
+	"Wilmington, DE"	 [fillcolor="#000043",
+		height=0.13247169509,
+		label=" ",
+		pos="-55.500000,197.500000)",
+		width=0.13247169509];
+	"Wilmington, DE" -- "Worcester, MA";
+	"Wilmington, DE" -- "Winchester, VA";
+	"Williston, ND"	 [fillcolor="#00001d",
+		height=0.057740800133,
+		label=" ",
+		pos="-336.200000,281.500000)",
+		width=0.057740800133];
+	"Williamsport, PA"	 [fillcolor="#00002e",
+		height=0.0913797023414,
+		label=" ",
+		pos="-70.000000,212.500000)",
+		width=0.0913797023414];
+	"Williamsport, PA" -- "Youngstown, OH";
+	"Williamsport, PA" -- "Winchester, VA";
+	"Williamsport, PA" -- "Wilmington, DE";
+	"Williamson, WV"	 [fillcolor="#000012",
+		height=0.0361213233423,
+		label=" ",
+		pos="-122.800000,176.800000)",
+		width=0.0361213233423];
+	"Williamson, WV" -- "Winston-Salem, NC";
+	"Wichita Falls, TX"	 [fillcolor="#00004e",
+		height=0.153460907074,
+		label=" ",
+		pos="-284.900000,139.000000)",
+		width=0.153460907074];
+	"Wichita, KS"	 [fillcolor="#000087",
+		height=0.264497164446,
+		label=" ",
+		pos="-273.400000,176.900000)",
+		width=0.264497164446];
+	"Wheeling, WV"	 [fillcolor="#000035",
+		height=0.103766564943,
+		label=" ",
+		pos="-107.200000,200.700000)",
+		width=0.103766564943];
+	"Wheeling, WV" -- "Youngstown, OH";
+	"Wheeling, WV" -- "Winchester, VA";
+	"Wheeling, WV" -- "Williamsport, PA";
+	"Wheeling, WV" -- "Williamson, WV";
+	"West Palm Beach, FL"	 [fillcolor="#000040",
+		height=0.12580242446,
+		label=" ",
+		pos="-100.500000,67.200000)",
+		width=0.12580242446];
+	"Wenatchee, WA"	 [fillcolor="#000021",
+		height=0.0656829506036,
+		label=" ",
+		pos="-503.200000,274.200000)",
+		width=0.0656829506036];
+	"Wenatchee, WA" -- "Yakima, WA";
+	"Weed, CA"	 [fillcolor="#0000 d",
+		height=0.0268281568506,
+		label=" ",
+		pos="-523.900000,214.200000)",
+		width=0.0268281568506];
+	"Waycross, GA"	 [fillcolor="#000023",
+		height=0.0695898699525,
+		label=" ",
+		pos="-123.500000,112.200000)",
+		width=0.0695898699525];
+	"Wausau, WI"	 [fillcolor="#00002e",
+		height=0.0900361038695,
+		label=" ",
+		pos="-196.400000,249.600000)",
+		width=0.0900361038695];
+	"Wausau, WI" -- "Wisconsin Dells, WI";
+	"Waukegan, IL"	 [fillcolor="#000042",
+		height=0.130050951554,
+		label=" ",
+		pos="-178.300000,223.600000)",
+		width=0.130050951554];
+	"Waukegan, IL" -- "Wisconsin Dells, WI";
+	"Waukegan, IL" -- "Wausau, WI";
+	"Watertown, SD"	 [fillcolor="#000020",
+		height=0.0625479815821,
+		label=" ",
+		pos="-271.100000,249.000000)",
+		width=0.0625479815821];
+	"Watertown, SD" -- "Yankton, SD";
+	"Watertown, NY"	 [fillcolor="#00002a",
+		height=0.0834580733063,
+		label=" ",
+		pos="-59.200000,239.800000)",
+		width=0.0834580733063];
+	"Watertown, NY" -- "Williamsport, PA";
+	"Waterloo, IA"	 [fillcolor="#000046",
+		height=0.13782688417,
+		label=" ",
+		pos="-223.400000,225.000000)",
+		width=0.13782688417];
+	"Waterloo, IA" -- "Yankton, SD";
+	"Waterloo, IA" -- "Wisconsin Dells, WI";
+	"Waterloo, IA" -- "Waukegan, IL";
+	"Waterbury, CT"	 [fillcolor="#000052",
+		height=0.160675138089,
+		label=" ",
+		pos="-30.500000,215.500000)",
+		width=0.160675138089];
+	"Waterbury, CT" -- "Worcester, MA";
+	"Waterbury, CT" -- "Wilmington, DE";
+	"Waterbury, CT" -- "Williamsport, PA";
+	"Waterbury, CT" -- "Watertown, NY";
+	"Washington, DC"	 [fillcolor="#0000cc",
+		height=0.399509699507,
+		label=" ",
+		pos="-70.300000,188.900000)",
+		width=0.399509699507];
+	"Washington, DC" -- "Winchester, VA";
+	"Washington, DC" -- "Wilmington, DE";
+	"Washington, DC" -- "Williamsport, PA";
+	"Washington, DC" -- "Wheeling, WV";
+	"Warren, PA"	 [fillcolor="#00001c",
+		height=0.0551044462816,
+		label=" ",
+		pos="-91.400000,218.500000)",
+		width=0.0551044462816];
+	"Warren, PA" -- "Youngstown, OH";
+	"Warren, PA" -- "Winchester, VA";
+	"Warren, PA" -- "Williamsport, PA";
+	"Warren, PA" -- "Wheeling, WV";
+	"Warren, PA" -- "Watertown, NY";
+	"Walla Walla, WA"	 [fillcolor="#000028",
+		height=0.0800281200579,
+		label=" ",
+		pos="-483.300000,260.700000)",
+		width=0.0800281200579];
+	"Walla Walla, WA" -- "Yakima, WA";
+	"Walla Walla, WA" -- "Wenatchee, WA";
+	"Waco, TX"	 [fillcolor="#000051",
+		height=0.159107667948,
+		label=" ",
+		pos="-271.400000,115.500000)",
+		width=0.159107667948];
+	"Waco, TX" -- "Wichita Falls, TX";
+	"Vincennes, IN"	 [fillcolor="#000024",
+		height=0.0722097638827,
+		label=" ",
+		pos="-175.300000,186.800000)",
+		width=0.0722097638827];
+	"Vincennes, IN" -- "Waukegan, IL";
+	"Victoria, TX"	 [fillcolor="#000039",
+		height=0.11257775091,
+		label=" ",
+		pos="-270.100000,88.100000)",
+		width=0.11257775091];
+	"Victoria, TX" -- "Waco, TX";
+	"Vicksburg, MS"	 [fillcolor="#000028",
+		height=0.07974020316,
+		label=" ",
+		pos="-208.800000,123.500000)",
+		width=0.07974020316];
+	"Vancouver, BC"	 [fillcolor="#0000a4",
+		height=0.321823321094,
+		label=" ",
+		pos="-531.200000,292.700000)",
+		width=0.321823321094];
+	"Vancouver, BC" -- "Yakima, WA";
+	"Vancouver, BC" -- "Wenatchee, WA";
+	"Valley City, ND"	 [fillcolor="#000016",
+		height=0.0440851448903,
+		label=" ",
+		pos="-280.100000,269.200000)",
+		width=0.0440851448903];
+	"Valley City, ND" -- "Winnipeg, MB";
+	"Valley City, ND" -- "Watertown, SD";
+	"Valdosta, GA"	 [fillcolor="#000031",
+		height=0.0969484399049,
+		label=" ",
+		pos="-132.800000,108.300000)",
+		width=0.0969484399049];
+	"Valdosta, GA" -- "Waycross, GA";
+	"Utica, NY"	 [fillcolor="#000046",
+		height=0.137506363489,
+		label=" ",
+		pos="-52.300000,231.100000)",
+		width=0.137506363489];
+	"Utica, NY" -- "Worcester, MA";
+	"Utica, NY" -- "Wilmington, DE";
+	"Utica, NY" -- "Williamsport, PA";
+	"Utica, NY" -- "Watertown, NY";
+	"Utica, NY" -- "Waterbury, CT";
+	"Utica, NY" -- "Warren, PA";
+	"Uniontown, PA"	 [fillcolor="#00001e",
+		height=0.0602287306856,
+		label=" ",
+		pos="-97.300000,199.000000)",
+		width=0.0602287306856];
+	"Uniontown, PA" -- "Youngstown, OH";
+	"Uniontown, PA" -- "Winchester, VA";
+	"Uniontown, PA" -- "Wilmington, DE";
+	"Uniontown, PA" -- "Williamsport, PA";
+	"Uniontown, PA" -- "Williamson, WV";
+	"Uniontown, PA" -- "Wheeling, WV";
+	"Uniontown, PA" -- "Washington, DC";
+	"Uniontown, PA" -- "Warren, PA";
+	"Tyler, TX"	 [fillcolor="#000043",
+		height=0.132766712696,
+		label=" ",
+		pos="-253.000000,123.500000)",
+		width=0.132766712696];
+	"Tyler, TX" -- "Wichita Falls, TX";
+	"Tyler, TX" -- "Waco, TX";
+	"Tyler, TX" -- "Vicksburg, MS";
+	"Twin Falls, ID"	 [fillcolor="#000029",
+		height=0.0809459696341,
+		label=" ",
+		pos="-444.700000,225.600000)",
+		width=0.0809459696341];
+	"Tuscaloosa, AL"	 [fillcolor="#000046",
+		height=0.137123119859,
+		label=" ",
+		pos="-175.700000,132.100000)",
+		width=0.137123119859];
+	"Tuscaloosa, AL" -- "Vicksburg, MS";
+	"Tupelo, MS"	 [fillcolor="#000027",
+		height=0.0773062093237,
+		label=" ",
+		pos="-187.100000,142.600000)",
+		width=0.0773062093237];
+	"Tupelo, MS" -- "Vicksburg, MS";
+	"Tupelo, MS" -- "Tuscaloosa, AL";
+	"Tulsa, OK"	 [fillcolor="#000099",
+		height=0.300382672603,
+		label=" ",
+		pos="-259.100000,161.600000)",
+		width=0.300382672603];
+	"Tulsa, OK" -- "Wichita Falls, TX";
+	"Tulsa, OK" -- "Wichita, KS";
+	"Tucson, AZ"	 [fillcolor="#000093",
+		height=0.287461736584,
+		label=" ",
+		pos="-409.700000,122.200000)",
+		width=0.287461736584];
+	"Trinidad, CO"	 [fillcolor="#000019",
+		height=0.0491502797551,
+		label=" ",
+		pos="-345.100000,171.700000)",
+		width=0.0491502797551];
+	"Trenton, NJ"	 [fillcolor="#00004d",
+		height=0.151759678439,
+		label=" ",
+		pos="-47.700000,202.300000)",
+		width=0.151759678439];
+	"Trenton, NJ" -- "Worcester, MA";
+	"Trenton, NJ" -- "Winchester, VA";
+	"Trenton, NJ" -- "Wilmington, DE";
+	"Trenton, NJ" -- "Williamsport, PA";
+	"Trenton, NJ" -- "Waterbury, CT";
+	"Trenton, NJ" -- "Washington, DC";
+	"Trenton, NJ" -- "Utica, NY";
+	"Traverse City, MI"	 [fillcolor="#00001f",
+		height=0.0622816184761,
+		label=" ",
+		pos="-156.300000,247.600000)",
+		width=0.0622816184761];
+	"Toronto, ON"	 [fillcolor="#0000c6",
+		height=0.387045539956,
+		label=" ",
+		pos="-93.800000,236.500000)",
+		width=0.387045539956];
+	"Toronto, ON" -- "Youngstown, OH";
+	"Toronto, ON" -- "Watertown, NY";
+	"Toronto, ON" -- "Warren, PA";
+	"Toronto, ON" -- "Utica, NY";
+	"Topeka, KS"	 [fillcolor="#000056",
+		height=0.169754234115,
+		label=" ",
+		pos="-256.700000,190.500000)",
+		width=0.169754234115];
+	"Topeka, KS" -- "Wichita, KS";
+	"Topeka, KS" -- "Tulsa, OK";
+	"Toledo, OH"	 [fillcolor="#000098",
+		height=0.297756192211,
+		label=" ",
+		pos="-135.400000,216.500000)",
+		width=0.297756192211];
+	"Toledo, OH" -- "Youngstown, OH";
+	"Toledo, OH" -- "Wheeling, WV";
+	"Toledo, OH" -- "Waukegan, IL";
+	"Toledo, OH" -- "Warren, PA";
+	"Toledo, OH" -- "Uniontown, PA";
+	"Toledo, OH" -- "Traverse City, MI";
+	"Toledo, OH" -- "Toronto, ON";
+	"Texarkana, TX"	 [fillcolor="#00002d",
+		height=0.0884180411455,
+		label=" ",
+		pos="-240.500000,134.300000)",
+		width=0.0884180411455];
+	"Texarkana, TX" -- "Wichita Falls, TX";
+	"Texarkana, TX" -- "Waco, TX";
+	"Texarkana, TX" -- "Vicksburg, MS";
+	"Texarkana, TX" -- "Tyler, TX";
+	"Terre Haute, IN"	 [fillcolor="#00003f",
+		height=0.123617353151,
+		label=" ",
+		pos="-174.100000,194.700000)",
+		width=0.123617353151];
+	"Terre Haute, IN" -- "Waukegan, IL";
+	"Terre Haute, IN" -- "Vincennes, IN";
+	"Terre Haute, IN" -- "Toledo, OH";
+	"Tampa, FL"	 [fillcolor="#000085",
+		height=0.260539344438,
+		label=" ",
+		pos="-124.500000,79.500000)",
+		width=0.260539344438];
+	"Tampa, FL" -- "West Palm Beach, FL";
+	"Tampa, FL" -- "Waycross, GA";
+	"Tampa, FL" -- "Valdosta, GA";
+	"Tallahassee, FL"	 [fillcolor="#000049",
+		height=0.142783052216,
+		label=" ",
+		pos="-142.800000,104.500000)",
+		width=0.142783052216];
+	"Tallahassee, FL" -- "Waycross, GA";
+	"Tallahassee, FL" -- "Valdosta, GA";
+	"Tallahassee, FL" -- "Tampa, FL";
+	"Tacoma, WA"	 [fillcolor="#000065",
+		height=0.199060920323,
+		label=" ",
+		pos="-524.300000,272.400000)",
+		width=0.199060920323];
+	"Tacoma, WA" -- "Yakima, WA";
+	"Tacoma, WA" -- "Wenatchee, WA";
+	"Tacoma, WA" -- "Walla Walla, WA";
+	"Tacoma, WA" -- "Vancouver, BC";
+	"Syracuse, NY"	 [fillcolor="#000069",
+		height=0.206218937055,
+		label=" ",
+		pos="-61.500000,230.500000)",
+		width=0.206218937055];
+	"Syracuse, NY" -- "Worcester, MA";
+	"Syracuse, NY" -- "Wilmington, DE";
+	"Syracuse, NY" -- "Williamsport, PA";
+	"Syracuse, NY" -- "Watertown, NY";
+	"Syracuse, NY" -- "Waterbury, CT";
+	"Syracuse, NY" -- "Warren, PA";
+	"Syracuse, NY" -- "Utica, NY";
+	"Syracuse, NY" -- "Trenton, NJ";
+	"Syracuse, NY" -- "Toronto, ON";
+	"Swainsboro, GA"	 [fillcolor="#000016",
+		height=0.0435947244515,
+		label=" ",
+		pos="-123.400000,126.000000)",
+		width=0.0435947244515];
+	"Swainsboro, GA" -- "Waycross, GA";
+	"Swainsboro, GA" -- "Valdosta, GA";
+	"Swainsboro, GA" -- "Tallahassee, FL";
+	"Sumter, SC"	 [fillcolor="#000028",
+		height=0.078882824493,
+		label=" ",
+		pos="-103.500000,139.200000)",
+		width=0.078882824493];
+	"Sumter, SC" -- "Winston-Salem, NC";
+	"Sumter, SC" -- "Wilmington, NC";
+	"Sumter, SC" -- "Waycross, GA";
+	"Sumter, SC" -- "Swainsboro, GA";
+	"Stroudsburg, PA"	 [fillcolor="#000012",
+		height=0.0358747822293,
+		label=" ",
+		pos="-51.900000,209.900000)",
+		width=0.0358747822293];
+	"Stroudsburg, PA" -- "Worcester, MA";
+	"Stroudsburg, PA" -- "Winchester, VA";
+	"Stroudsburg, PA" -- "Wilmington, DE";
+	"Stroudsburg, PA" -- "Williamsport, PA";
+	"Stroudsburg, PA" -- "Watertown, NY";
+	"Stroudsburg, PA" -- "Waterbury, CT";
+	"Stroudsburg, PA" -- "Washington, DC";
+	"Stroudsburg, PA" -- "Warren, PA";
+	"Stroudsburg, PA" -- "Utica, NY";
+	"Stroudsburg, PA" -- "Trenton, NJ";
+	"Stroudsburg, PA" -- "Syracuse, NY";
+	"Stockton, CA"	 [fillcolor="#000063",
+		height=0.19350645984,
+		label=" ",
+		pos="-512.900000,179.600000)",
+		width=0.19350645984];
+	"Stockton, CA" -- "Weed, CA";
+	"Stevens Point, WI"	 [fillcolor="#000026",
+		height=0.0757792847683,
+		label=" ",
+		pos="-195.700000,245.200000)",
+		width=0.0757792847683];
+	"Stevens Point, WI" -- "Wisconsin Dells, WI";
+	"Stevens Point, WI" -- "Wausau, WI";
+	"Stevens Point, WI" -- "Waukegan, IL";
+	"Stevens Point, WI" -- "Waterloo, IA";
+	"Steubenville, OH"	 [fillcolor="#000029",
+		height=0.0812403840464,
+		label=" ",
+		pos="-106.200000,203.600000)",
+		width=0.0812403840464];
+	"Steubenville, OH" -- "Youngstown, OH";
+	"Steubenville, OH" -- "Winchester, VA";
+	"Steubenville, OH" -- "Williamsport, PA";
+	"Steubenville, OH" -- "Williamson, WV";
+	"Steubenville, OH" -- "Wheeling, WV";
+	"Steubenville, OH" -- "Washington, DC";
+	"Steubenville, OH" -- "Warren, PA";
+	"Steubenville, OH" -- "Uniontown, PA";
+	"Steubenville, OH" -- "Toledo, OH";
+	"Sterling, CO"	 [fillcolor="#00001b",
+		height=0.0533502577313,
+		label=" ",
+		pos="-332.200000,206.200000)",
+		width=0.0533502577313];
+	"Sterling, CO" -- "Trinidad, CO";
+	"Staunton, VA"	 [fillcolor="#000025",
+		height=0.073920565474,
+		label=" ",
+		pos="-90.700000,181.500000)",
+		width=0.073920565474];
+	"Staunton, VA" -- "Winston-Salem, NC";
+	"Staunton, VA" -- "Winchester, VA";
+	"Staunton, VA" -- "Wilmington, DE";
+	"Staunton, VA" -- "Williamsport, PA";
+	"Staunton, VA" -- "Williamson, WV";
+	"Staunton, VA" -- "Wheeling, WV";
+	"Staunton, VA" -- "Washington, DC";
+	"Staunton, VA" -- "Uniontown, PA";
+	"Staunton, VA" -- "Steubenville, OH";
+	"Springfield, OH"	 [fillcolor="#000044",
+		height=0.134687601508,
+		label=" ",
+		pos="-138.100000,199.200000)",
+		width=0.134687601508];
+	"Springfield, OH" -- "Youngstown, OH";
+	"Springfield, OH" -- "Williamson, WV";
+	"Springfield, OH" -- "Wheeling, WV";
+	"Springfield, OH" -- "Vincennes, IN";
+	"Springfield, OH" -- "Uniontown, PA";
+	"Springfield, OH" -- "Toledo, OH";
+	"Springfield, OH" -- "Terre Haute, IN";
+	"Springfield, OH" -- "Steubenville, OH";
+	"Springfield, MO"	 [fillcolor="#00005d",
+		height=0.182425327189,
+		label=" ",
+		pos="-232.900000,172.200000)",
+		width=0.182425327189];
+	"Springfield, MO" -- "Wichita, KS";
+	"Springfield, MO" -- "Tulsa, OK";
+	"Springfield, MO" -- "Topeka, KS";
+	"Springfield, MA"	 [fillcolor="#000063",
+		height=0.195140334119,
+		label=" ",
+		pos="-25.900000,221.000000)",
+		width=0.195140334119];
+	"Springfield, MA" -- "Worcester, MA";
+	"Springfield, MA" -- "Wilmington, DE";
+	"Springfield, MA" -- "Watertown, NY";
+	"Springfield, MA" -- "Waterbury, CT";
+	"Springfield, MA" -- "Utica, NY";
+	"Springfield, MA" -- "Trenton, NJ";
+	"Springfield, MA" -- "Syracuse, NY";
+	"Springfield, MA" -- "Stroudsburg, PA";
+	"Springfield, IL"	 [fillcolor="#000050",
+		height=0.158156567995,
+		label=" ",
+		pos="-196.500000,198.000000)",
+		width=0.158156567995];
+	"Springfield, IL" -- "Waukegan, IL";
+	"Springfield, IL" -- "Vincennes, IN";
+	"Springfield, IL" -- "Terre Haute, IN";
+	"Spokane, WA"	 [fillcolor="#000069",
+		height=0.206942020866,
+		label=" ",
+		pos="-474.100000,276.700000)",
+		width=0.206942020866];
+	"Spokane, WA" -- "Yakima, WA";
+	"Spokane, WA" -- "Wenatchee, WA";
+	"Spokane, WA" -- "Walla Walla, WA";
+	"South Bend, IN"	 [fillcolor="#000054",
+		height=0.165625330188,
+		label=" ",
+		pos="-162.500000,216.800000)",
+		width=0.165625330188];
+	"South Bend, IN" -- "Wisconsin Dells, WI";
+	"South Bend, IN" -- "Waukegan, IL";
+	"South Bend, IN" -- "Vincennes, IN";
+	"South Bend, IN" -- "Traverse City, MI";
+	"South Bend, IN" -- "Toledo, OH";
+	"South Bend, IN" -- "Terre Haute, IN";
+	"South Bend, IN" -- "Springfield, OH";
+	"South Bend, IN" -- "Springfield, IL";
+	"Sioux Falls, SD"	 [fillcolor="#000049",
+		height=0.142603471206,
+		label=" ",
+		pos="-267.300000,235.400000)",
+		width=0.142603471206];
+	"Sioux Falls, SD" -- "Yankton, SD";
+	"Sioux Falls, SD" -- "Watertown, SD";
+	"Sioux Falls, SD" -- "Waterloo, IA";
+	"Sioux City, IA"	 [fillcolor="#000049",
+		height=0.143180829722,
+		label=" ",
+		pos="-263.900000,224.900000)",
+		width=0.143180829722];
+	"Sioux City, IA" -- "Yankton, SD";
+	"Sioux City, IA" -- "Watertown, SD";
+	"Sioux City, IA" -- "Waterloo, IA";
+	"Sioux City, IA" -- "Topeka, KS";
+	"Sioux City, IA" -- "Sioux Falls, SD";
+	"Shreveport, LA"	 [fillcolor="#000074",
+		height=0.226836945844,
+		label=" ",
+		pos="-237.500000,125.100000)",
+		width=0.226836945844];
+	"Shreveport, LA" -- "Waco, TX";
+	"Shreveport, LA" -- "Vicksburg, MS";
+	"Shreveport, LA" -- "Tyler, TX";
+	"Shreveport, LA" -- "Texarkana, TX";
+	"Sherman, TX"	 [fillcolor="#00002c",
+		height=0.0871966169069,
+		label=" ",
+		pos="-266.100000,136.400000)",
+		width=0.0871966169069];
+	"Sherman, TX" -- "Wichita Falls, TX";
+	"Sherman, TX" -- "Waco, TX";
+	"Sherman, TX" -- "Tyler, TX";
+	"Sherman, TX" -- "Tulsa, OK";
+	"Sherman, TX" -- "Texarkana, TX";
+	"Sherman, TX" -- "Shreveport, LA";
+	"Sheridan, WY"	 [fillcolor="#00001f",
+		height=0.0615345431445,
+		label=" ",
+		pos="-369.600000,248.000000)",
+		width=0.0615345431445];
+	"Seminole, OK"	 [fillcolor="#000017",
+		height=0.0463411264429,
+		label=" ",
+		pos="-266.800000,152.300000)",
+		width=0.0463411264429];
+	"Seminole, OK" -- "Wichita Falls, TX";
+	"Seminole, OK" -- "Wichita, KS";
+	"Seminole, OK" -- "Waco, TX";
+	"Seminole, OK" -- "Tyler, TX";
+	"Seminole, OK" -- "Tulsa, OK";
+	"Seminole, OK" -- "Texarkana, TX";
+	"Seminole, OK" -- "Springfield, MO";
+	"Seminole, OK" -- "Sherman, TX";
+	"Selma, AL"	 [fillcolor="#000029",
+		height=0.0816761899209,
+		label=" ",
+		pos="-170.200000,124.200000)",
+		width=0.0816761899209];
+	"Selma, AL" -- "Vicksburg, MS";
+	"Selma, AL" -- "Tuscaloosa, AL";
+	"Selma, AL" -- "Tupelo, MS";
+	"Selma, AL" -- "Tallahassee, FL";
+	"Sedalia, MO"	 [fillcolor="#000025",
+		height=0.0723308371305,
+		label=" ",
+		pos="-232.300000,187.100000)",
+		width=0.0723308371305];
+	"Sedalia, MO" -- "Wichita, KS";
+	"Sedalia, MO" -- "Tulsa, OK";
+	"Sedalia, MO" -- "Topeka, KS";
+	"Sedalia, MO" -- "Springfield, MO";
+	"Sedalia, MO" -- "Springfield, IL";
+	"Seattle, WA"	 [fillcolor="#0000b3",
+		height=0.351370886671,
+		label=" ",
+		pos="-523.300000,276.000000)",
+		width=0.351370886671];
+	"Seattle, WA" -- "Yakima, WA";
+	"Seattle, WA" -- "Wenatchee, WA";
+	"Seattle, WA" -- "Walla Walla, WA";
+	"Seattle, WA" -- "Vancouver, BC";
+	"Seattle, WA" -- "Tacoma, WA";
+	"Seattle, WA" -- "Spokane, WA";
+	"Scranton, PA"	 [fillcolor="#00004b",
+		height=0.14842253872,
+		label=" ",
+		pos="-56.700000,214.100000)",
+		width=0.14842253872];
+	"Scranton, PA" -- "Worcester, MA";
+	"Scranton, PA" -- "Winchester, VA";
+	"Scranton, PA" -- "Wilmington, DE";
+	"Scranton, PA" -- "Williamsport, PA";
+	"Scranton, PA" -- "Watertown, NY";
+	"Scranton, PA" -- "Waterbury, CT";
+	"Scranton, PA" -- "Washington, DC";
+	"Scranton, PA" -- "Warren, PA";
+	"Scranton, PA" -- "Utica, NY";
+	"Scranton, PA" -- "Trenton, NJ";
+	"Scranton, PA" -- "Syracuse, NY";
+	"Scranton, PA" -- "Stroudsburg, PA";
+	"Scranton, PA" -- "Springfield, MA";
+	"Scottsbluff, NE"	 [fillcolor="#00001e",
+		height=0.0594894948709,
+		label=" ",
+		pos="-336.600000,218.700000)",
+		width=0.0594894948709];
+	"Scottsbluff, NE" -- "Sterling, CO";
+	"Schenectady, NY"	 [fillcolor="#000042",
+		height=0.130357201566,
+		label=" ",
+		pos="-39.500000,228.200000)",
+		width=0.130357201566];
+	"Schenectady, NY" -- "Worcester, MA";
+	"Schenectady, NY" -- "Wilmington, DE";
+	"Schenectady, NY" -- "Williamsport, PA";
+	"Schenectady, NY" -- "Watertown, NY";
+	"Schenectady, NY" -- "Waterbury, CT";
+	"Schenectady, NY" -- "Utica, NY";
+	"Schenectady, NY" -- "Trenton, NJ";
+	"Schenectady, NY" -- "Syracuse, NY";
+	"Schenectady, NY" -- "Stroudsburg, PA";
+	"Schenectady, NY" -- "Springfield, MA";
+	"Schenectady, NY" -- "Scranton, PA";
+	"Savannah, GA"	 [fillcolor="#000060",
+		height=0.188171464362,
+		label=" ",
+		pos="-110.900000,120.800000)",
+		width=0.188171464362];
+	"Savannah, GA" -- "Wilmington, NC";
+	"Savannah, GA" -- "Waycross, GA";
+	"Savannah, GA" -- "Valdosta, GA";
+	"Savannah, GA" -- "Tallahassee, FL";
+	"Savannah, GA" -- "Swainsboro, GA";
+	"Savannah, GA" -- "Sumter, SC";
+	"Sault Sainte Marie, MI"	 [fillcolor="#00001e",
+		height=0.0600999168053,
+		label=" ",
+		pos="-143.500000,264.900000)",
+		width=0.0600999168053];
+	"Sault Sainte Marie, MI" -- "Traverse City, MI";
+	"Sarasota, FL"	 [fillcolor="#000038",
+		height=0.110530538766,
+		label=" ",
+		pos="-125.300000,73.400000)",
+		width=0.110530538766];
+	"Sarasota, FL" -- "West Palm Beach, FL";
+	"Sarasota, FL" -- "Valdosta, GA";
+	"Sarasota, FL" -- "Tampa, FL";
+	"Sarasota, FL" -- "Tallahassee, FL";
+	"Santa Rosa, CA"	 [fillcolor="#000049",
+		height=0.14432601983,
+		label=" ",
+		pos="-527.200000,184.400000)",
+		width=0.14432601983];
+	"Santa Rosa, CA" -- "Stockton, CA";
+	"Santa Fe, NM"	 [fillcolor="#000038",
+		height=0.110626624282,
+		label=" ",
+		pos="-359.500000,156.800000)",
+		width=0.110626624282];
+	"Santa Fe, NM" -- "Trinidad, CO";
+	"Santa Barbara, CA"	 [fillcolor="#000045",
+		height=0.136394647989,
+		label=" ",
+		pos="-497.000000,144.200000)",
+		width=0.136394647989];
+	"Santa Ana, CA"	 [fillcolor="#000073",
+		height=0.225844526168,
+		label=" ",
+		pos="-478.700000,137.600000)",
+		width=0.225844526168];
+	"Santa Ana, CA" -- "Santa Barbara, CA";
+	"San Jose, CA"	 [fillcolor="#0000cb",
+		height=0.396719674329,
+		label=" ",
+		pos="-518.800000,173.400000)",
+		width=0.396719674329];
+	"San Jose, CA" -- "Stockton, CA";
+	"San Jose, CA" -- "Santa Rosa, CA";
+	"San Jose, CA" -- "Santa Barbara, CA";
+	"San Francisco, CA"	 [fillcolor="#0000d2",
+		height=0.411999393203,
+		label=" ",
+		pos="-524.200000,177.800000)",
+		width=0.411999393203];
+	"San Francisco, CA" -- "Stockton, CA";
+	"San Francisco, CA" -- "Santa Rosa, CA";
+	"San Francisco, CA" -- "San Jose, CA";
+	"Sandusky, OH"	 [fillcolor="#00002d",
+		height=0.0885437744847,
+		label=" ",
+		pos="-127.100000,214.500000)",
+		width=0.0885437744847];
+	"Sandusky, OH" -- "Youngstown, OH";
+	"Sandusky, OH" -- "Wheeling, WV";
+	"Sandusky, OH" -- "Warren, PA";
+	"Sandusky, OH" -- "Uniontown, PA";
+	"Sandusky, OH" -- "Toledo, OH";
+	"Sandusky, OH" -- "Steubenville, OH";
+	"Sandusky, OH" -- "Springfield, OH";
+	"Sandusky, OH" -- "South Bend, IN";
+	"San Diego, CA"	 [fillcolor="#0000ef",
+		height=0.4678509378,
+		label=" ",
+		pos="-471.500000,127.100000)",
+		width=0.4678509378];
+	"San Diego, CA" -- "Santa Barbara, CA";
+	"San Diego, CA" -- "Santa Ana, CA";
+	"San Bernardino, CA"	 [fillcolor="#000058",
+		height=0.1723325274,
+		label=" ",
+		pos="-473.100000,141.100000)",
+		width=0.1723325274];
+	"San Bernardino, CA" -- "Santa Barbara, CA";
+	"San Bernardino, CA" -- "Santa Ana, CA";
+	"San Bernardino, CA" -- "San Diego, CA";
+	"San Antonio, TX"	 [fillcolor="#0000e2",
+		height=0.443289690834,
+		label=" ",
+		pos="-285.000000,94.200000)",
+		width=0.443289690834];
+	"San Antonio, TX" -- "Waco, TX";
+	"San Antonio, TX" -- "Victoria, TX";
+	"San Angelo, TX"	 [fillcolor="#000045",
+		height=0.1353144486,
+		label=" ",
+		pos="-304.400000,114.600000)",
+		width=0.1353144486];
+	"San Angelo, TX" -- "Wichita Falls, TX";
+	"San Angelo, TX" -- "Waco, TX";
+	"San Angelo, TX" -- "San Antonio, TX";
+	"Salt Lake City, UT"	 [fillcolor="#000067",
+		height=0.202297429544,
+		label=" ",
+		pos="-418.800000,207.600000)",
+		width=0.202297429544];
+	"Salt Lake City, UT" -- "Twin Falls, ID";
+	"Salisbury, MD"	 [fillcolor="#000020",
+		height=0.064087830358,
+		label=" ",
+		pos="-56.000000,183.700000)",
+		width=0.064087830358];
+	"Salisbury, MD" -- "Winchester, VA";
+	"Salisbury, MD" -- "Wilmington, DE";
+	"Salisbury, MD" -- "Williamsport, PA";
+	"Salisbury, MD" -- "Washington, DC";
+	"Salisbury, MD" -- "Trenton, NJ";
+	"Salisbury, MD" -- "Stroudsburg, PA";
+	"Salisbury, MD" -- "Scranton, PA";
+	"Salinas, CA"	 [fillcolor="#000048",
+		height=0.141844104566,
+		label=" ",
+		pos="-516.500000,166.700000)",
+		width=0.141844104566];
+	"Salinas, CA" -- "Stockton, CA";
+	"Salinas, CA" -- "Santa Rosa, CA";
+	"Salinas, CA" -- "Santa Barbara, CA";
+	"Salinas, CA" -- "San Jose, CA";
+	"Salinas, CA" -- "San Francisco, CA";
+	"Salina, KS"	 [fillcolor="#000034",
+		height=0.102277807955,
+		label=" ",
+		pos="-276.100000,188.400000)",
+		width=0.102277807955];
+	"Salina, KS" -- "Wichita, KS";
+	"Salina, KS" -- "Tulsa, OK";
+	"Salina, KS" -- "Topeka, KS";
+	"Salina, KS" -- "Sedalia, MO";
+	"Salida, CO"	 [fillcolor="#000036",
+		height=0.105912699899,
+		label=" ",
+		pos="-360.000000,185.300000)",
+		width=0.105912699899];
+	"Salida, CO" -- "Trinidad, CO";
+	"Salida, CO" -- "Sterling, CO";
+	"Salida, CO" -- "Santa Fe, NM";
+	"Salem, OR"	 [fillcolor="#00004c",
+		height=0.149359465719,
+		label=" ",
+		pos="-530.300000,249.400000)",
+		width=0.149359465719];
+	"Salem, OR" -- "Yakima, WA";
+	"Salem, OR" -- "Walla Walla, WA";
+	"Salem, OR" -- "Tacoma, WA";
+	"Salem, OR" -- "Seattle, WA";
+	"Saint Paul, MN"	 [fillcolor="#000085",
+		height=0.259918256381,
+		label=" ",
+		pos="-231.000000,249.500000)",
+		width=0.259918256381];
+	"Saint Paul, MN" -- "Wisconsin Dells, WI";
+	"Saint Paul, MN" -- "Wausau, WI";
+	"Saint Paul, MN" -- "Watertown, SD";
+	"Saint Paul, MN" -- "Waterloo, IA";
+	"Saint Paul, MN" -- "Stevens Point, WI";
+	"Saint Paul, MN" -- "Sioux Falls, SD";
+	"Saint Paul, MN" -- "Sioux City, IA";
+	"Saint Louis, MO"	 [fillcolor="#0000ac",
+		height=0.336557944491,
+		label=" ",
+		pos="-201.900000,186.200000)",
+		width=0.336557944491];
+	"Saint Louis, MO" -- "Vincennes, IN";
+	"Saint Louis, MO" -- "Terre Haute, IN";
+	"Saint Louis, MO" -- "Springfield, MO";
+	"Saint Louis, MO" -- "Springfield, IL";
+	"Saint Louis, MO" -- "Sedalia, MO";
+	"Saint Joseph, MO"	 [fillcolor="#000046",
+		height=0.138465699724,
+		label=" ",
+		pos="-248.400000,197.700000)",
+		width=0.138465699724];
+	"Saint Joseph, MO" -- "Wichita, KS";
+	"Saint Joseph, MO" -- "Waterloo, IA";
+	"Saint Joseph, MO" -- "Topeka, KS";
+	"Saint Joseph, MO" -- "Springfield, MO";
+	"Saint Joseph, MO" -- "Sioux City, IA";
+	"Saint Joseph, MO" -- "Sedalia, MO";
+	"Saint Joseph, MO" -- "Salina, KS";
+	"Saint Joseph, MI"	 [fillcolor="#000019",
+		height=0.0490458968722,
+		label=" ",
+		pos="-164.800000,221.000000)",
+		width=0.0490458968722];
+	"Saint Joseph, MI" -- "Wisconsin Dells, WI";
+	"Saint Joseph, MI" -- "Waukegan, IL";
+	"Saint Joseph, MI" -- "Vincennes, IN";
+	"Saint Joseph, MI" -- "Traverse City, MI";
+	"Saint Joseph, MI" -- "Toledo, OH";
+	"Saint Joseph, MI" -- "Terre Haute, IN";
+	"Saint Joseph, MI" -- "Springfield, OH";
+	"Saint Joseph, MI" -- "Springfield, IL";
+	"Saint Joseph, MI" -- "South Bend, IN";
+	"Saint Joseph, MI" -- "Sandusky, OH";
+	"Saint Johnsbury, VT"	 [fillcolor="#000015",
+		height=0.0422788363132,
+		label=" ",
+		pos="-20.200000,244.200000)",
+		width=0.0422788363132];
+	"Saint Johnsbury, VT" -- "Worcester, MA";
+	"Saint Johnsbury, VT" -- "Watertown, NY";
+	"Saint Johnsbury, VT" -- "Waterbury, CT";
+	"Saint Johnsbury, VT" -- "Utica, NY";
+	"Saint Johnsbury, VT" -- "Springfield, MA";
+	"Saint Johnsbury, VT" -- "Schenectady, NY";
+	"Saint Cloud, MN"	 [fillcolor="#000034",
+		height=0.103157646348,
+		label=" ",
+		pos="-241.700000,255.700000)",
+		width=0.103157646348];
+	"Saint Cloud, MN" -- "Wisconsin Dells, WI";
+	"Saint Cloud, MN" -- "Wausau, WI";
+	"Saint Cloud, MN" -- "Watertown, SD";
+	"Saint Cloud, MN" -- "Waterloo, IA";
+	"Saint Cloud, MN" -- "Valley City, ND";
+	"Saint Cloud, MN" -- "Stevens Point, WI";
+	"Saint Cloud, MN" -- "Sioux Falls, SD";
+	"Saint Cloud, MN" -- "Sioux City, IA";
+	"Saint Cloud, MN" -- "Saint Paul, MN";
+	"Saint Augustine, FL"	 [fillcolor="#00001c",
+		height=0.0547380123863,
+		label=" ",
+		pos="-113.200000,98.900000)",
+		width=0.0547380123863];
+	"Saint Augustine, FL" -- "West Palm Beach, FL";
+	"Saint Augustine, FL" -- "Waycross, GA";
+	"Saint Augustine, FL" -- "Valdosta, GA";
+	"Saint Augustine, FL" -- "Tampa, FL";
+	"Saint Augustine, FL" -- "Tallahassee, FL";
+	"Saint Augustine, FL" -- "Swainsboro, GA";
+	"Saint Augustine, FL" -- "Savannah, GA";
+	"Saint Augustine, FL" -- "Sarasota, FL";
+	"Saginaw, MI"	 [fillcolor="#000047",
+		height=0.139201293097,
+		label=" ",
+		pos="-139.400000,234.300000)",
+		width=0.139201293097];
+	"Saginaw, MI" -- "Traverse City, MI";
+	"Saginaw, MI" -- "Toronto, ON";
+	"Saginaw, MI" -- "Toledo, OH";
+	"Saginaw, MI" -- "Springfield, OH";
+	"Saginaw, MI" -- "South Bend, IN";
+	"Saginaw, MI" -- "Sault Sainte Marie, MI";
+	"Saginaw, MI" -- "Sandusky, OH";
+	"Saginaw, MI" -- "Saint Joseph, MI";
+	"Sacramento, CA"	 [fillcolor="#000086",
+		height=0.262555232285,
+		label=" ",
+		pos="-514.900000,185.900000)",
+		width=0.262555232285];
+	"Sacramento, CA" -- "Weed, CA";
+	"Sacramento, CA" -- "Stockton, CA";
+	"Sacramento, CA" -- "Santa Rosa, CA";
+	"Sacramento, CA" -- "San Jose, CA";
+	"Sacramento, CA" -- "San Francisco, CA";
+	"Sacramento, CA" -- "Salinas, CA";
+	"Rutland, VT"	 [fillcolor="#000022",
+		height=0.06788961629,
+		label=" ",
+		pos="-29.700000,236.100000)",
+		width=0.06788961629];
+	"Rutland, VT" -- "Worcester, MA";
+	"Rutland, VT" -- "Watertown, NY";
+	"Rutland, VT" -- "Waterbury, CT";
+	"Rutland, VT" -- "Utica, NY";
+	"Rutland, VT" -- "Trenton, NJ";
+	"Rutland, VT" -- "Syracuse, NY";
+	"Rutland, VT" -- "Stroudsburg, PA";
+	"Rutland, VT" -- "Springfield, MA";
+	"Rutland, VT" -- "Scranton, PA";
+	"Rutland, VT" -- "Schenectady, NY";
+	"Rutland, VT" -- "Saint Johnsbury, VT";
+	"Roswell, NM"	 [fillcolor="#000032",
+		height=0.0995941765366,
+		label=" ",
+		pos="-345.300000,134.000000)",
+		width=0.0995941765366];
+	"Roswell, NM" -- "Santa Fe, NM";
+	"Rocky Mount, NC"	 [fillcolor="#000034",
+		height=0.101591092129,
+		label=" ",
+		pos="-78.000000,159.400000)",
+		width=0.101591092129];
+	"Rocky Mount, NC" -- "Winston-Salem, NC";
+	"Rocky Mount, NC" -- "Winchester, VA";
+	"Rocky Mount, NC" -- "Wilmington, NC";
+	"Rocky Mount, NC" -- "Washington, DC";
+	"Rocky Mount, NC" -- "Sumter, SC";
+	"Rocky Mount, NC" -- "Staunton, VA";
+	"Rocky Mount, NC" -- "Salisbury, MD";
+	"Rock Springs, WY"	 [fillcolor="#000023",
+		height=0.0697459676254,
+		label=" ",
+		pos="-392.300000,215.900000)",
+		width=0.0697459676254];
+	"Rock Springs, WY" -- "Salt Lake City, UT";
+	"Rockford, IL"	 [fillcolor="#00005f",
+		height=0.18689034218,
+		label=" ",
+		pos="-191.000000,222.700000)",
+		width=0.18689034218];
+	"Rockford, IL" -- "Wisconsin Dells, WI";
+	"Rockford, IL" -- "Wausau, WI";
+	"Rockford, IL" -- "Waukegan, IL";
+	"Rockford, IL" -- "Waterloo, IA";
+	"Rockford, IL" -- "Terre Haute, IN";
+	"Rockford, IL" -- "Stevens Point, WI";
+	"Rockford, IL" -- "Springfield, IL";
+	"Rockford, IL" -- "South Bend, IN";
+	"Rockford, IL" -- "Saint Louis, MO";
+	"Rockford, IL" -- "Saint Joseph, MI";
+	"Rochester, NY"	 [fillcolor="#00007d",
+		height=0.245835819196,
+		label=" ",
+		pos="-76.100000,231.600000)",
+		width=0.245835819196];
+	"Rochester, NY" -- "Youngstown, OH";
+	"Rochester, NY" -- "Williamsport, PA";
+	"Rochester, NY" -- "Watertown, NY";
+	"Rochester, NY" -- "Warren, PA";
+	"Rochester, NY" -- "Utica, NY";
+	"Rochester, NY" -- "Toronto, ON";
+	"Rochester, NY" -- "Syracuse, NY";
+	"Rochester, NY" -- "Stroudsburg, PA";
+	"Rochester, NY" -- "Scranton, PA";
+	"Rochester, NY" -- "Schenectady, NY";
+	"Rochester, NY" -- "Rutland, VT";
+	"Rochester, MN"	 [fillcolor="#00003d",
+		height=0.120301704061,
+		label=" ",
+		pos="-224.600000,240.200000)",
+		width=0.120301704061];
+	"Rochester, MN" -- "Wisconsin Dells, WI";
+	"Rochester, MN" -- "Wausau, WI";
+	"Rochester, MN" -- "Watertown, SD";
+	"Rochester, MN" -- "Waterloo, IA";
+	"Rochester, MN" -- "Stevens Point, WI";
+	"Rochester, MN" -- "Sioux Falls, SD";
+	"Rochester, MN" -- "Sioux City, IA";
+	"Rochester, MN" -- "Saint Paul, MN";
+	"Rochester, MN" -- "Saint Cloud, MN";
+	"Rochester, MN" -- "Rockford, IL";
+	"Roanoke, VA"	 [fillcolor="#000051",
+		height=0.158287712726,
+		label=" ",
+		pos="-99.400000,172.700000)",
+		width=0.158287712726];
+	"Roanoke, VA" -- "Winston-Salem, NC";
+	"Roanoke, VA" -- "Winchester, VA";
+	"Roanoke, VA" -- "Wilmington, NC";
+	"Roanoke, VA" -- "Williamson, WV";
+	"Roanoke, VA" -- "Washington, DC";
+	"Roanoke, VA" -- "Uniontown, PA";
+	"Roanoke, VA" -- "Sumter, SC";
+	"Roanoke, VA" -- "Staunton, VA";
+	"Roanoke, VA" -- "Rocky Mount, NC";
+	"Richmond, VA"	 [fillcolor="#000077",
+		height=0.234101473725,
+		label=" ",
+		pos="-74.500000,175.400000)",
+		width=0.234101473725];
+	"Richmond, VA" -- "Winston-Salem, NC";
+	"Richmond, VA" -- "Winchester, VA";
+	"Richmond, VA" -- "Wilmington, NC";
+	"Richmond, VA" -- "Wilmington, DE";
+	"Richmond, VA" -- "Washington, DC";
+	"Richmond, VA" -- "Uniontown, PA";
+	"Richmond, VA" -- "Trenton, NJ";
+	"Richmond, VA" -- "Staunton, VA";
+	"Richmond, VA" -- "Rocky Mount, NC";
+	"Richmond, VA" -- "Roanoke, VA";
+	"Richmond, IN"	 [fillcolor="#000034",
+		height=0.101672267605,
+		label=" ",
+		pos="-148.900000,198.300000)",
+		width=0.101672267605];
+	"Richmond, IN" -- "Youngstown, OH";
+	"Richmond, IN" -- "Williamson, WV";
+	"Richmond, IN" -- "Wheeling, WV";
+	"Richmond, IN" -- "Waukegan, IL";
+	"Richmond, IN" -- "Vincennes, IN";
+	"Richmond, IN" -- "Toledo, OH";
+	"Richmond, IN" -- "Terre Haute, IN";
+	"Richmond, IN" -- "Steubenville, OH";
+	"Richmond, IN" -- "Springfield, OH";
+	"Richmond, IN" -- "Springfield, IL";
+	"Richmond, IN" -- "South Bend, IN";
+	"Richmond, IN" -- "Sandusky, OH";
+	"Richmond, IN" -- "Saint Joseph, MI";
+	"Richmond, IN" -- "Saginaw, MI";
+	"Richfield, UT"	 [fillcolor="#000012",
+		height=0.0370202647208,
+		label=" ",
+		pos="-420.900000,187.700000)",
+		width=0.0370202647208];
+	"Richfield, UT" -- "Salt Lake City, UT";
+	"Rhinelander, WI"	 [fillcolor="#000016",
+		height=0.0443649636538,
+		label=" ",
+		pos="-194.200000,256.400000)",
+		width=0.0443649636538];
+	"Rhinelander, WI" -- "Wisconsin Dells, WI";
+	"Rhinelander, WI" -- "Wausau, WI";
+	"Rhinelander, WI" -- "Waukegan, IL";
+	"Rhinelander, WI" -- "Stevens Point, WI";
+	"Rhinelander, WI" -- "Saint Paul, MN";
+	"Rhinelander, WI" -- "Saint Cloud, MN";
+	"Rhinelander, WI" -- "Rockford, IL";
+	"Rhinelander, WI" -- "Rochester, MN";
+	"Reno, NV"	 [fillcolor="#000051",
+		height=0.158710428139,
+		label=" ",
+		pos="-498.100000,195.200000)",
+		width=0.158710428139];
+	"Reno, NV" -- "Stockton, CA";
+	"Reno, NV" -- "Santa Rosa, CA";
+	"Reno, NV" -- "San Jose, CA";
+	"Reno, NV" -- "San Francisco, CA";
+	"Reno, NV" -- "Sacramento, CA";
+	"Regina, SK"	 [fillcolor="#000067",
+		height=0.201626511154,
+		label=" ",
+		pos="-346.500000,304.200000)",
+		width=0.201626511154];
+	"Regina, SK" -- "Williston, ND";
+	"Red Bluff, CA"	 [fillcolor="#000018",
+		height=0.0487083155118,
+		label=" ",
+		pos="-522.400000,201.800000)",
+		width=0.0487083155118];
+	"Red Bluff, CA" -- "Weed, CA";
+	"Red Bluff, CA" -- "Stockton, CA";
+	"Red Bluff, CA" -- "Santa Rosa, CA";
+	"Red Bluff, CA" -- "San Jose, CA";
+	"Red Bluff, CA" -- "San Francisco, CA";
+	"Red Bluff, CA" -- "Salinas, CA";
+	"Red Bluff, CA" -- "Sacramento, CA";
+	"Red Bluff, CA" -- "Reno, NV";
+	"Reading, PA"	 [fillcolor="#000047",
+		height=0.140255124684,
+		label=" ",
+		pos="-59.300000,203.300000)",
+		width=0.140255124684];
+	"Reading, PA" -- "Winchester, VA";
+	"Reading, PA" -- "Wilmington, DE";
+	"Reading, PA" -- "Williamsport, PA";
+	"Reading, PA" -- "Waterbury, CT";
+	"Reading, PA" -- "Washington, DC";
+	"Reading, PA" -- "Warren, PA";
+	"Reading, PA" -- "Utica, NY";
+	"Reading, PA" -- "Uniontown, PA";
+	"Reading, PA" -- "Trenton, NJ";
+	"Reading, PA" -- "Syracuse, NY";
+	"Reading, PA" -- "Stroudsburg, PA";
+	"Reading, PA" -- "Steubenville, OH";
+	"Reading, PA" -- "Staunton, VA";
+	"Reading, PA" -- "Springfield, MA";
+	"Reading, PA" -- "Scranton, PA";
+	"Reading, PA" -- "Schenectady, NY";
+	"Reading, PA" -- "Salisbury, MD";
+	"Reading, PA" -- "Rochester, NY";
+	"Reading, PA" -- "Richmond, VA";
+	"Ravenna, OH"	 [fillcolor="#00001c",
+		height=0.0547425794058,
+		label=" ",
+		pos="-112.400000,211.600000)",
+		width=0.0547425794058];
+	"Ravenna, OH" -- "Youngstown, OH";
+	"Ravenna, OH" -- "Winchester, VA";
+	"Ravenna, OH" -- "Williamsport, PA";
+	"Ravenna, OH" -- "Wheeling, WV";
+	"Ravenna, OH" -- "Warren, PA";
+	"Ravenna, OH" -- "Uniontown, PA";
+	"Ravenna, OH" -- "Toledo, OH";
+	"Ravenna, OH" -- "Steubenville, OH";
+	"Ravenna, OH" -- "Springfield, OH";
+	"Ravenna, OH" -- "South Bend, IN";
+	"Ravenna, OH" -- "Sandusky, OH";
+	"Ravenna, OH" -- "Saginaw, MI";
+	"Ravenna, OH" -- "Rochester, NY";
+	"Ravenna, OH" -- "Richmond, IN";
+}

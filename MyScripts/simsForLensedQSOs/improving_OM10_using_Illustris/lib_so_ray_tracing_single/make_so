@@ -1,0 +1,4 @@
+gcc-7 -O3 -Wall -c -fPIC -lm -I. -L. -DBUILD_CC -DSLICES -lgsl -lgslcblas -lcfitsio mycosmology.c get_mean_median.c cook_sources.c ray_tracing_funcs.c call_cal_lensing.c 
+
+gcc-7 -shared *.o -lgsl -lgslcblas -lcfitsio -lfftw3 -o ./lib/libraysingle.so
+rm *.o

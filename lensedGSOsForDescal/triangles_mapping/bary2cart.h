@@ -1,0 +1,10 @@
+typedef enum { false, true } bool;
+double signP(double *p0, double *p1, double *p2);
+bool PIT(double *pt, double *v0, double *v1, double *v2);
+double triAera(double * p0, double *p1, double *p2);
+void bary2cart(double *p0, double *p1, double *p2, double *bary, double *pt);
+void Cart2Bary(double *p, double *a, double *b, double *c, double *bary);
+void cart2bary(double *pt, double *p0, double *p1, double *p2, double *bary);
+void tria_vectors(int i,int j,double *xgrids1,double *xgrids2,int nc,double *v0,double *v1,double *v2);
+void trib_vectors(int i,int j,double *xgrids1,double *xgrids2,int nc,double *v0,double *v1,double *v2);
+void mapping_triangles(double *ys,double *xgrids1,double *xgrids2,double *lgrids1,double *lgrids2, int nc, double *xroots);

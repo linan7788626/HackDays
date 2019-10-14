@@ -1,0 +1,7 @@
+gcc -Wall -fPIC -c icic_omp.c
+gcc -shared icic_omp.o -o ./libicic.so
+
+#gcc-4.8 -Wall -Ofast -fopenmp -fPIC -c ./icic_omp.c
+##gcc-4.8 -shared -fopenmp -lrt ./icic_omp.o -o ./libicic.so
+#gcc-4.8 -shared -fopenmp ./icic_omp.o -o ./libicic.so
+rm ./*.o

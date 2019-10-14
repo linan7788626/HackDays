@@ -1,0 +1,23 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/MacPorts 2014_1) (preloaded format=latex)
+ restricted \write18 enabled.
+entering extended mode
+(./ffe7feb7fbb85f73893c0138363bc9f1.tex
+LaTeX2e <2014/05/01>
+Babel <3.9k> and hyphenation patterns for 43 languages loaded.
+(/opt/local/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/opt/local/share/texmf-texlive/tex/latex/base/size10.clo))
+
+! LaTeX Error: File `type1cm.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Emergency stop.
+<read *> 
+         
+l.3 \renewcommand
+                 {\rmdefault}{pnc}^^M
+No pages of output.
+Transcript written on ffe7feb7fbb85f73893c0138363bc9f1.log.

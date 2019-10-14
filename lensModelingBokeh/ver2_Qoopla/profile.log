@@ -1,0 +1,1517 @@
+FUNCTION  bufferline#refresh_status()
+Called 4 times
+Total time:   0.001929
+ Self time:   0.000135
+
+count  total (s)   self (s)
+    4              0.000013   if g:bufferline_solo_highlight
+                                if g:bufferline_status_info.count == 1
+                                  exec printf('highlight! link %s %s', g:bufferline_active_highlight, g:bufferline_inactive_highlight)
+                                else
+                                  exec printf('highlight! link %s NONE', g:bufferline_active_highlight)
+                                endif
+                              endif
+    4   0.001850   0.000056   call bufferline#get_echo_string()
+    4              0.000006   return ''
+
+FUNCTION  <SNR>146_debug()
+Called 12 times
+Total time:   0.000178
+ Self time:   0.000178
+
+count  total (s)   self (s)
+   12              0.000028     if s:debug
+                                    execute 'redir >> ' . s:debug_file
+                                    silent echon s:gettime() . ': ' . a:msg . "\n"
+                                    redir END
+                                endif
+
+FUNCTION  airline#statusline()
+Called 4 times
+Total time:   0.000106
+ Self time:   0.000106
+
+count  total (s)   self (s)
+    4              0.000048   if has_key(s:contexts, a:winnr)
+    4              0.000049     return '%{airline#check_mode('.a:winnr.')}'.s:contexts[a:winnr].line
+                              endif
+                            
+                              " in rare circumstances this happens...see #276
+                              return ''
+
+FUNCTION  airline#check_mode()
+Called 4 times
+Total time:   0.000599
+ Self time:   0.000599
+
+count  total (s)   self (s)
+    4              0.000028   let context = s:contexts[a:winnr]
+                            
+    4              0.000024   if get(w:, 'airline_active', 1)
+    4              0.000020     let l:m = mode()
+    4              0.000014     if l:m ==# "i"
+                                  let l:mode = ['insert']
+                                elseif l:m ==# "R"
+                                  let l:mode = ['replace']
+                                elseif l:m =~# '\v(v|V||s|S|)'
+                                  let l:mode = ['visual']
+                                elseif l:m ==# "t"
+                                  let l:mode = ['terminal']
+                                else
+    4              0.000014       let l:mode = ['normal']
+    4              0.000005     endif
+    4              0.000033     let w:airline_current_mode = get(g:airline_mode_map, l:m, l:m)
+    4              0.000005   else
+                                let l:mode = ['inactive']
+                                let w:airline_current_mode = get(g:airline_mode_map, '__')
+                              endif
+                            
+    4              0.000020   if g:airline_detect_modified && &modified
+                                call add(l:mode, 'modified')
+                              endif
+                            
+    4              0.000010   if g:airline_detect_paste && &paste
+                                call add(l:mode, 'paste')
+                              endif
+                            
+    4              0.000028   if g:airline_detect_crypt && exists("+key") && !empty(&key)
+                                call add(l:mode, 'crypt')
+                              endif
+                            
+    4              0.000011   if g:airline_detect_spell && &spell
+                                call add(l:mode, 'spell')
+                              endif
+                            
+    4              0.000009   if &readonly || ! &modifiable
+                                call add(l:mode, 'readonly')
+                              endif
+                            
+    4              0.000042   let mode_string = join(l:mode)
+    4              0.000028   if get(w:, 'airline_lastmode', '') != mode_string
+                                call airline#highlighter#highlight_modified_inactive(context.bufnr)
+                                call airline#highlighter#highlight(l:mode, context.bufnr)
+                                let w:airline_lastmode = mode_string
+                              endif
+                            
+    4              0.000006   return ''
+
+FUNCTION  airline#util#append()
+Called 20 times
+Total time:   0.000360
+ Self time:   0.000360
+
+count  total (s)   self (s)
+   20              0.000077   if a:minwidth > 0 && winwidth(0) < a:minwidth
+                                return ''
+                              endif
+   20              0.000105   let prefix = s:spc == "\ua0" ? s:spc : s:spc.s:spc
+   20              0.000099   return empty(a:text) ? '' : prefix.g:airline_left_alt_sep.s:spc.a:text
+
+FUNCTION  <SNR>146_IsValidFile()
+Called 2 times
+Total time:   0.000377
+ Self time:   0.000350
+
+count  total (s)   self (s)
+    2   0.000052   0.000025     call s:debug('Checking if file is valid [' . a:fname . ']')
+                            
+    2              0.000010     if a:fname == '' || a:ftype == ''
+                                    call s:debug('Empty filename or type')
+                                    return 0
+                                endif
+                            
+    2              0.000065     if !filereadable(a:fname) && getbufvar(a:fname, 'netrw_tmpfile') == ''
+                                    call s:debug('File not readable')
+                                    return 0
+                                endif
+                            
+    2              0.000048     if getbufvar(a:fname, 'tagbar_ignore') == 1
+                                    call s:debug('File is marked as ignored')
+                                    return 0
+                                endif
+                            
+    2              0.000040     let winnr = bufwinnr(a:fname)
+    2              0.000015     if winnr != -1 && getwinvar(winnr, '&diff')
+                                    call s:debug('Window is in diff mode')
+                                    return 0
+                                endif
+                            
+    2              0.000005     if &previewwindow
+                                    call s:debug('In preview window')
+                                    return 0
+                                endif
+                            
+    2              0.000013     if !has_key(s:known_types, a:ftype)
+                                    if exists('g:tagbar_type_' . a:ftype)
+                                        " Filetype definition must have been specified in an 'ftplugin'
+                                        " file, so load it now
+                                        call s:LoadUserTypeDefs(a:ftype)
+                                    else
+                                        call s:debug('Unsupported filetype: ' . a:ftype)
+                                        return 0
+                                    endif
+                                endif
+                            
+    2              0.000004     return 1
+
+FUNCTION  <SNR>146_TagbarBufName()
+Called 4 times
+Total time:   0.000070
+ Self time:   0.000070
+
+count  total (s)   self (s)
+    4              0.000029     if !exists('t:tagbar_buf_name')
+                                    let s:buffer_seqno += 1
+                                    let t:tagbar_buf_name = '__Tagbar__.' . s:buffer_seqno
+                                endif
+                            
+    4              0.000011     return t:tagbar_buf_name
+
+FUNCTION  <SNR>128_update_branch()
+Called 4 times
+Total time:   0.001014
+ Self time:   0.000678
+
+count  total (s)   self (s)
+    4              0.000284   let l:path = exists("*fnamemodify") ? fnamemodify(resolve(@%), ":p:h") : expand("%:p:h")
+   12              0.000049   for vcs in keys(s:vcs_config)
+    8   0.000498   0.000162     call {s:vcs_config[vcs].update_branch}(l:path)
+    8              0.000051     if b:buffer_vcs_config[vcs].branch != s:vcs_config[vcs].branch
+                                  let b:buffer_vcs_config[vcs].branch = s:vcs_config[vcs].branch
+                                  unlet! b:airline_head
+                                endif
+    8              0.000009   endfor
+
+FUNCTION  airline#parts#filetype()
+Called 4 times
+Total time:   0.000050
+ Self time:   0.000050
+
+count  total (s)   self (s)
+    4              0.000049   return winwidth(0) < 100 && strlen(&filetype) > 3 ? matchstr(&filetype, '...'). (&encoding is? 'utf-8' ? '…' : '>') : &filetype
+
+FUNCTION  airline#parts#iminsert()
+Called 4 times
+Total time:   0.000046
+ Self time:   0.000046
+
+count  total (s)   self (s)
+    4              0.000018   if g:airline_detect_iminsert && &iminsert && exists('b:keymap_name')
+                                return toupper(b:keymap_name)
+                              endif
+    4              0.000005   return ''
+
+FUNCTION  <SNR>126_get_hunks()
+Called 4 times
+Total time:   0.000313
+ Self time:   0.000277
+
+count  total (s)   self (s)
+    4              0.000036   if !exists('b:source_func') || get(b:, 'source_func', '') is# 's:get_hunks_empty'
+    4   0.000079   0.000052     if get(g:, 'loaded_signify') && sy#buffer_is_active()
+                                  let b:source_func = 's:get_hunks_signify'
+                                elseif exists('*GitGutterGetHunkSummary')
+                                  let b:source_func = 's:get_hunks_gitgutter'
+                                elseif exists('*changes#GetStats')
+                                  let b:source_func = 's:get_hunks_changes'
+                                elseif exists('*quickfixsigns#vcsdiff#GetHunkSummary')
+                                  let b:source_func = 'quickfixsigns#vcsdiff#GetHunkSummary'
+                                else
+    4              0.000012       let b:source_func = 's:get_hunks_empty'
+    4              0.000005     endif
+    4              0.000003   endif
+    4   0.000068   0.000059   return {b:source_func}()
+
+FUNCTION  bufferline#get_echo_string()
+Called 4 times
+Total time:   0.001794
+ Self time:   0.000389
+
+count  total (s)   self (s)
+                              " check for special cases like help files
+    4              0.000025   let current = bufnr('%')
+    4              0.000027   if !bufexists(current) || !buflisted(current)
+                                return bufname('%')
+                              endif
+                            
+    4   0.001474   0.000069   let names = s:generate_names()
+    4              0.000008   let line = ''
+   12              0.000023   for val in names
+    8              0.000036     let line .= val[1]
+    8              0.000013   endfor
+                            
+    4              0.000045   let index = match(line, '\V'.g:bufferline_status_info.current)
+    4              0.000020   let g:bufferline_status_info.count = len(names)
+    4              0.000025   let g:bufferline_status_info.before = strpart(line, 0, index)
+    4              0.000035   let g:bufferline_status_info.after = strpart(line, index + len(g:bufferline_status_info.current))
+    4              0.000008   return line
+
+FUNCTION  100()
+Called 4 times
+Total time:   0.000172
+ Self time:   0.000138
+
+count  total (s)   self (s)
+    4              0.000018     let buf = a:0 ? a:1 : bufnr('')
+    4   0.000085   0.000051     let loclist = syntastic#util#getbufvar(buf, 'syntastic_loclist', {})
+    4              0.000023     if type(loclist) != type({}) || empty(loclist)
+                                    unlet! loclist
+                                    let loclist = g:SyntasticLoclist.New([])
+                                endif
+    4              0.000005     return loclist
+
+FUNCTION  109()
+Called 4 times
+Total time:   0.000325
+ Self time:   0.000325
+
+count  total (s)   self (s)
+    4              0.000016     if !exists('self._stl_format')
+                                    let self._stl_format = ''
+                                endif
+    4              0.000014     if !exists('self._stl_flag')
+                                    let self._stl_flag = ''
+                                endif
+                            
+    4              0.000014     if g:syntastic_stl_format !=# self._stl_format
+                                    let self._stl_format = g:syntastic_stl_format
+                            
+                                    if !empty(self._rawLoclist)
+                                        let errors = self.errors()
+                                        let warnings = self.warnings()
+                            
+                                        let num_errors = len(errors)
+                                        let num_warnings = len(warnings)
+                                        let num_issues = len(self._rawLoclist)
+                            
+                                        let output = self._stl_format
+                            
+                                        "hide stuff wrapped in %E(...) unless there are errors
+                                        let output = substitute(output, '\m\C%E{\([^}]*\)}', num_errors ? '\1' : '' , 'g')
+                            
+                                        "hide stuff wrapped in %W(...) unless there are warnings
+                                        let output = substitute(output, '\m\C%W{\([^}]*\)}', num_warnings ? '\1' : '' , 'g')
+                            
+                                        "hide stuff wrapped in %B(...) unless there are both errors and warnings
+                                        let output = substitute(output, '\m\C%B{\([^}]*\)}', (num_warnings && num_errors) ? '\1' : '' , 'g')
+                            
+                                        let flags = { '%':  '%', 't':  num_issues, 'e':  num_errors, 'w':  num_warnings, 'N':  (num_issues ? fnamemodify( bufname(self._rawLoclist[0]['bufnr']), ':t') : ''), 'P':  (num_issues ? fnamemodify( bufname(self._rawLoclist[0]['bufnr']), ':p:~:.') : ''), 'F':  (num_issues ? self._rawLoclist[0]['lnum'] : ''), 'ne': (num_errors ? fnamemodify( bufname(errors[0]['bufnr']), ':t') : ''), 'pe': (num_errors ? fnamemodify( bufname(errors[0]['bufnr']), ':p:~:.') : ''), 'fe': (num_errors ? errors[0]['lnum'] : ''), 'nw': (num_warnings ? fnamemodify( bufname(warnings[0]['bufnr']), ':t') : ''), 'pw': (num_warnings ? fnamemodify( bufname(warnings[0]['bufnr']), ':p:~:.') : ''), 'fw': (num_warnings ? warnings[0]['lnum'] : '') }
+                                        let output = substitute(output, '\v\C\%(-?\d*%(\.\d+)?)([npf][ew]|[NPFtew%])', '\=syntastic#util#wformat(submatch(1), flags[submatch(2)])', 'g')
+                            
+                                        let self._stl_flag = output
+                                    else
+                                        let self._stl_flag = ''
+                                    endif
+                                endif
+                            
+    4              0.000005     return self._stl_flag
+
+FUNCTION  <SNR>131_check_mixed_indent()
+Called 2 times
+Total time:   0.019958
+ Self time:   0.019958
+
+count  total (s)   self (s)
+    2              0.000004   if s:indent_algo == 1
+                                " [<tab>]<space><tab>
+                                " spaces before or between tabs are not allowed
+                                let t_s_t = '(^\t* +\t\s*\S)'
+                                " <tab>(<space> x count)
+                                " count of spaces at the end of tabs should be less than tabstop value
+                                let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
+                                return search('\v' . t_s_t . '|' . t_l_s, 'nw')
+                              elseif s:indent_algo == 2
+                                return search('\v(^\t* +\t\s*\S)', 'nw')
+                              else
+    2              0.019927     return search('\v(^\t+ +)|(^ +\t+)', 'nw')
+                              endif
+
+FUNCTION  <SNR>47_generate_names()
+Called 4 times
+Total time:   0.001405
+ Self time:   0.001405
+
+count  total (s)   self (s)
+    4              0.000013   let names = []
+    4              0.000008   let i = 1
+    4              0.000017   let last_buffer = bufnr('$')
+    4              0.000020   let current_buffer = bufnr('%')
+   12              0.000030   while i <= last_buffer
+    8              0.000043     if bufexists(i) && buflisted(i)
+    8              0.000022       let modified = ' '
+    8              0.000059       if getbufvar(i, '&mod')
+                                    let modified = g:bufferline_modified
+                                  endif
+    8              0.000061       let fname = fnamemodify(bufname(i), g:bufferline_fname_mod)
+    8              0.000021       if g:bufferline_pathshorten != 0
+                                    let fname = pathshorten(fname)
+                                  endif
+    8              0.000079       let fname = substitute(fname, "%", "%%", "g")
+                            
+    8              0.000017       let skip = 0
+   16              0.000035       for ex in g:bufferline_excludes
+    8              0.000068         if match(fname, ex) > -1
+                                      let skip = 1
+                                      break
+                                    endif
+    8              0.000009       endfor
+                            
+    8              0.000017       if !skip
+    8              0.000015         let name = ''
+    8              0.000035         if g:bufferline_show_bufnr != 0 && g:bufferline_status_info.count >= g:bufferline_show_bufnr
+    8              0.000037           let name =  i . ':'
+    8              0.000010         endif
+    8              0.000034         let name .= fname . modified
+                            
+    8              0.000020         if current_buffer == i
+    4              0.000023           let name = g:bufferline_active_buffer_left . name . g:bufferline_active_buffer_right
+    4              0.000016           let g:bufferline_status_info.current = name
+    4              0.000008         else
+    4              0.000020           let name = g:bufferline_separator . name . g:bufferline_separator
+    4              0.000004         endif
+                            
+    8              0.000042         call add(names, [i, name])
+    8              0.000008       endif
+    8              0.000006     endif
+    8              0.000016     let i += 1
+    8              0.000008   endwhile
+                            
+    4              0.000013   if len(names) > 1
+    4              0.000009     if g:bufferline_rotate == 1
+                                  call bufferline#algos#fixed_position#modify(names)
+                                endif
+    4              0.000004   endif
+                            
+    4              0.000007   return names
+
+FUNCTION  airline#util#wrap()
+Called 32 times
+Total time:   0.000276
+ Self time:   0.000276
+
+count  total (s)   self (s)
+   32              0.000119   if a:minwidth > 0 && winwidth(0) < a:minwidth
+                                return ''
+                              endif
+   32              0.000053   return a:text
+
+FUNCTION  187()
+Called 4 times
+Total time:   0.000108
+ Self time:   0.000108
+
+count  total (s)   self (s)
+    4              0.000012     if a:full && self.path != ''
+                                    let str = self.path . self.typeinfo.sro . self.name
+                                else
+    4              0.000010         let str = self.name
+    4              0.000004     endif
+                            
+    4              0.000015     if has_key(self.fields, 'signature')
+                                    if a:longsig
+                                        let str .= self.fields.signature
+                                    else
+                                        let str .= '()'
+                                    endif
+                                endif
+                            
+    4              0.000008     return str
+
+FUNCTION  syntastic#util#getbufvar()
+Called 4 times
+Total time:   0.000034
+ Self time:   0.000034
+
+count  total (s)   self (s)
+    4              0.000032     return a:0 ? s:_getbufvar(a:buf, a:name, a:1) : getbufvar(a:buf, a:name)
+
+FUNCTION  airline#extensions#tagbar#currenttag()
+Called 4 times
+Total time:   0.001965
+ Self time:   0.000146
+
+count  total (s)   self (s)
+    4              0.000021   if get(w:, 'airline_active', 0)
+    4              0.000019     if s:airline_tagbar_last_lookup_time != localtime()
+    4   0.001879   0.000060       let s:airline_tagbar_last_lookup_val = tagbar#currenttag('%s', '', s:flags)
+    4              0.000021       let s:airline_tagbar_last_lookup_time = localtime()
+    4              0.000004     endif
+    4              0.000010     return s:airline_tagbar_last_lookup_val
+                              endif
+                              return ''
+
+FUNCTION  199()
+Called 4 times
+Total time:   0.000051
+ Self time:   0.000051
+
+count  total (s)   self (s)
+    4              0.000017     let idx = self.kinddict[a:kind]
+    4              0.000017     return self.kinds[idx]
+
+FUNCTION  <SNR>146_SetStatusLine()
+Called 2 times
+Total time:   0.000260
+ Self time:   0.000226
+
+count  total (s)   self (s)
+    2   0.000243   0.000209     let tagbarwinnr = bufwinnr(s:TagbarBufName())
+    2              0.000008     if tagbarwinnr == -1
+    2              0.000003         return
+                                endif
+                            
+                                " Make sure we're actually in the Tagbar window
+                                if tagbarwinnr != winnr()
+                                    let in_tagbar = 0
+                                    let prevwinnr = winnr()
+                                    call s:goto_win('p', 1)
+                                    let pprevwinnr = winnr()
+                                    call s:goto_win(tagbarwinnr, 1)
+                                else
+                                    let in_tagbar = 1
+                                endif
+                            
+                                if !empty(s:TagbarState().getCurrent(0))
+                                    let fileinfo = s:TagbarState().getCurrent(0)
+                                    let fname = fnamemodify(fileinfo.fpath, ':t')
+                                    let sorted = get(fileinfo.typeinfo, 'sort', g:tagbar_sort)
+                                else
+                                    let fname = ''
+                                    let sorted = g:tagbar_sort
+                                endif
+                                let sortstr = sorted ? 'Name' : 'Order'
+                            
+                                let flags = []
+                                let flags += exists('w:autoclose') && w:autoclose ? ['c'] : []
+                                let flags += g:tagbar_autoclose ? ['C'] : []
+                                let flags += (sorted && g:tagbar_case_insensitive) ? ['i'] : []
+                                let flags += g:tagbar_hide_nonpublic ? ['v'] : []
+                            
+                                if exists('g:tagbar_status_func')
+                                    let args = [in_tagbar, sortstr, fname, flags]
+                                    let &l:statusline = call(g:tagbar_status_func, args)
+                                else
+                                    let colour = in_tagbar ? '%#StatusLine#' : '%#StatusLineNC#'
+                                    let flagstr = join(flags, '')
+                                    if flagstr != ''
+                                        let flagstr = '[' . flagstr . '] '
+                                    endif
+                                    let text = colour . '[' . sortstr . '] ' . flagstr . fname
+                                    let &l:statusline = text
+                                endif
+                            
+                                if !in_tagbar
+                                    call s:goto_win(pprevwinnr, 1)
+                                    call s:goto_win(prevwinnr, 1)
+                                endif
+
+FUNCTION  <SNR>146_Init()
+Called 4 times
+Total time:   0.000182
+ Self time:   0.000182
+
+count  total (s)   self (s)
+    4              0.000012     if s:checked_ctags == 2 && a:silent
+                                    return 0
+                                elseif s:checked_ctags != 1
+                                    if !s:CheckForExCtags(a:silent)
+                                        return 0
+                                    endif
+                                endif
+                            
+    4              0.000010     if !s:checked_ctags_types
+                                    call s:GetSupportedFiletypes()
+                                endif
+                            
+    4              0.000008     if !s:type_init_done
+                                    call s:InitTypes()
+                                endif
+                            
+    4              0.000008     if !s:autocommands_done
+                                    call s:CreateAutocommands()
+                                    call s:AutoUpdate(fnamemodify(expand('%'), ':p'), 0)
+                                endif
+                            
+    4              0.000005     return 1
+
+FUNCTION  airline#parts#ffenc()
+Called 4 times
+Total time:   0.000149
+ Self time:   0.000149
+
+count  total (s)   self (s)
+    4              0.000026   let expected = get(g:, 'airline#parts#ffenc#skip_expected_string', '')
+    4              0.000014   let bomb     = &l:bomb ? '[BOM]' : ''
+    4              0.000044   let ff       = strlen(&ff) ? '['.&ff.']' : ''
+    4              0.000029   if expected is# &fenc.bomb.ff
+                                return ''
+                              else
+    4              0.000020     return &fenc.bomb.ff
+                              endif
+
+FUNCTION  tagbar#currenttag()
+Called 4 times
+Total time:   0.001819
+ Self time:   0.000366
+
+count  total (s)   self (s)
+                                " Indicate that the statusline functionality is being used. This prevents
+                                " the CloseWindow() function from removing the autocommands.
+    4              0.000014     let s:statusline_in_use = 1
+                            
+    4              0.000009     if a:0 > 0
+                                    " also test for non-zero value for backwards compatibility
+    4              0.000044         let longsig   = a:1 =~# 's' || (type(a:1) == type(0) && a:1 != 0)
+    4              0.000022         let fullpath  = a:1 =~# 'f'
+    4              0.000020         let prototype = a:1 =~# 'p'
+    4              0.000005     else
+                                    let longsig   = 0
+                                    let fullpath  = 0
+                                    let prototype = 0
+                                endif
+                            
+    4   0.000226   0.000044     if !s:Init(1)
+                                    return a:default
+                                endif
+                            
+    4   0.001216   0.000053     let tag = s:GetNearbyTag(0, 1)
+                            
+    4              0.000012     if !empty(tag)
+    4              0.000007         if prototype
+                                        return tag.getPrototype(1)
+                                    else
+    4   0.000165   0.000057             return printf(a:fmt, tag.str(longsig, fullpath))
+                                    endif
+                                else
+                                    return a:default
+                                endif
+
+FUNCTION  airline#parts#paste()
+Called 4 times
+Total time:   0.000020
+ Self time:   0.000020
+
+count  total (s)   self (s)
+    4              0.000018   return g:airline_detect_paste && &paste ? g:airline_symbols.paste : ''
+
+FUNCTION  airline#parts#readonly()
+Called 4 times
+Total time:   0.000049
+ Self time:   0.000049
+
+count  total (s)   self (s)
+    4              0.000021   if &readonly && &modifiable && !filereadable(bufname('%'))
+                                return '[noperm]'
+                              else
+    4              0.000011     return &readonly ? g:airline_symbols.readonly : ''
+                              endif
+
+FUNCTION  airline#parts#spell()
+Called 4 times
+Total time:   0.000019
+ Self time:   0.000019
+
+count  total (s)   self (s)
+    4              0.000017   return g:airline_detect_spell && &spell ? g:airline_symbols.spell : ''
+
+FUNCTION  airline#extensions#whitespace#check()
+Called 4 times
+Total time:   0.036716
+ Self time:   0.016306
+
+count  total (s)   self (s)
+    4              0.000039   if &readonly || !&modifiable || !s:enabled || line('$') > s:max_lines || get(b:, 'airline_whitespace_disabled', 0)
+                                return ''
+                              endif
+                            
+    4              0.000020   if !exists('b:airline_whitespace_check')
+    2              0.000007     let b:airline_whitespace_check = ''
+    2              0.000014     let checks = get(b:, 'airline_whitespace_checks', get(g:, 'airline#extensions#whitespace#checks', s:default_checks))
+                            
+    2              0.000004     let trailing = 0
+    2              0.000009     if index(checks, 'trailing') > -1
+    2              0.000002       try
+    2              0.000010         let regexp = get(g:, 'airline#extensions#whitespace#trailing_regexp', '\s$')
+    2              0.015710         let trailing = search(regexp, 'nw')
+    2              0.000004       catch
+                                    echomsg 'airline#whitespace: error occured evaluating '. regexp
+                                    echomsg v:exception
+                                    return ''
+                                  endtry
+    2              0.000000     endif
+                            
+    2              0.000004     let mixed = 0
+    2              0.000003     let check = 'indent'
+    2              0.000022     if index(checks, check) > -1 && index(get(s:skip_check_ft, &ft, []), check) < 0
+    2   0.019988   0.000030       let mixed = s:check_mixed_indent()
+    2              0.000003     endif
+                            
+    2              0.000003     let mixed_file = ''
+    2              0.000003     let check = 'mixed-indent-file'
+    2              0.000018     if index(checks, check) > -1 && index(get(s:skip_check_ft, &ft, []), check) < 0
+    2   0.000410   0.000029       let mixed_file = s:check_mixed_indent_file()
+    2              0.000002     endif
+                            
+    2              0.000004     let long = 0
+    2              0.000006     if index(checks, 'long') > -1 && &tw > 0
+                                  let long = search('\%>'.&tw.'v.\+', 'nw')
+                                endif
+                            
+    2              0.000007     if trailing != 0 || mixed != 0 || long != 0 || !empty(mixed_file)
+                                  let b:airline_whitespace_check = s:symbol
+                                  if strlen(s:symbol) > 0
+                                    let space = (g:airline_symbols.space)
+                                  else
+                                    let space = ''
+                                  endif
+                            
+                                  if s:show_message
+                                    if trailing != 0
+                                      let b:airline_whitespace_check .= space.printf(s:trailing_format, trailing)
+                                    endif
+                                    if mixed != 0
+                                      let b:airline_whitespace_check .= space.printf(s:mixed_indent_format, mixed)
+                                    endif
+                                    if long != 0
+                                      let b:airline_whitespace_check .= space.printf(s:long_format, long)
+                                    endif
+                                    if !empty(mixed_file)
+                                      let b:airline_whitespace_check .= space.printf(s:mixed_indent_file_format, mixed_file)
+                                    endif
+                                  endif
+                                endif
+    2              0.000002   endif
+    4   0.000100   0.000029   return airline#util#shorten(b:airline_whitespace_check, 120, 9)
+
+FUNCTION  sy#buffer_is_active()
+Called 4 times
+Total time:   0.000027
+ Self time:   0.000027
+
+count  total (s)   self (s)
+    4              0.000022   return exists('b:sy') && b:sy.active
+
+FUNCTION  208()
+Called 6 times
+Total time:   0.000040
+ Self time:   0.000040
+
+count  total (s)   self (s)
+    6              0.000018     if !s:paused || a:forcecurrent
+    6              0.000013         return self._current
+                                else
+                                    return self._paused
+                                endif
+
+FUNCTION  209()
+Called 2 times
+Total time:   0.000012
+ Self time:   0.000012
+
+count  total (s)   self (s)
+    2              0.000010     let self._current = a:fileinfo
+
+FUNCTION  <SNR>128_update_untracked_in_buffer_config()
+Called 4 times
+Total time:   0.000085
+ Self time:   0.000085
+
+count  total (s)   self (s)
+    4              0.000025   if !has_key(s:vcs_config[a:vcs].untracked, a:file)
+                                return
+                              elseif s:vcs_config[a:vcs].untracked[a:file] != b:buffer_vcs_config[a:vcs].untracked
+                                let b:buffer_vcs_config[a:vcs].untracked = s:vcs_config[a:vcs].untracked[a:file]
+                                unlet! b:airline_head
+                              endif
+
+FUNCTION  airline#parts#crypt()
+Called 4 times
+Total time:   0.000042
+ Self time:   0.000042
+
+count  total (s)   self (s)
+    4              0.000036   return g:airline_detect_crypt && exists("+key") && !empty(&key) ? g:airline_symbols.crypt : ''
+
+FUNCTION  211()
+Called 4 times
+Total time:   0.000035
+ Self time:   0.000035
+
+count  total (s)   self (s)
+    4              0.000032     return get(self._files, a:fname, {})
+
+FUNCTION  213()
+Called 2 times
+Total time:   0.000016
+ Self time:   0.000016
+
+count  total (s)   self (s)
+    2              0.000014     return has_key(self._files, a:fname)
+
+FUNCTION  airline#extensions#branch#head()
+Called 4 times
+Total time:   0.002429
+ Self time:   0.000755
+
+count  total (s)   self (s)
+    4              0.000021   if !exists('b:buffer_vcs_config')
+                                call s:init_buffer()
+                              endif
+                            
+    4   0.001064   0.000050   call s:update_branch()
+    4   0.000618   0.000051   call s:update_untracked()
+                            
+    4              0.000026   if exists('b:airline_head') && !empty(b:airline_head)
+                                return b:airline_head
+                              endif
+                            
+    4              0.000010   let b:airline_head = ''
+    4              0.000029   let l:vcs_priority = get(g:, "airline#extensions#branch#vcs_priority", ["git", "mercurial"])
+                            
+    4              0.000012   let l:heads = {}
+   12              0.000023   for vcs in l:vcs_priority
+    8              0.000037     if !empty(b:buffer_vcs_config[vcs].branch)
+                                  let l:heads[vcs] = b:buffer_vcs_config[vcs].branch
+                                endif
+    8              0.000009   endfor
+                            
+    4              0.000017   for vcs in keys(l:heads)
+                                if !empty(b:airline_head)
+                                  let b:airline_head .= ' | '
+                                endif
+                                let b:airline_head .= (len(l:heads) > 1 ? s:vcs_config[l:vcs].exe : '') . s:format_name(l:heads[l:vcs])
+                                let b:airline_head .= b:buffer_vcs_config[vcs].untracked
+                              endfor
+                            
+    4              0.000012   if empty(l:heads)
+    4              0.000008     if s:has_vcscommand
+                                  call VCSCommandEnableBufferSetup()
+                                  if exists('b:VCSCommandBufferInfo')
+                                    let b:airline_head = s:format_name(get(b:VCSCommandBufferInfo, 0, ''))
+                                  endif
+                                endif
+    4              0.000004   endif
+                            
+    4              0.000020   if exists("g:airline#extensions#branch#displayed_head_limit")
+                                let w:displayed_head_limit = g:airline#extensions#branch#displayed_head_limit
+                                if len(b:airline_head) > w:displayed_head_limit - 1
+                                  let b:airline_head = b:airline_head[0:(w:displayed_head_limit - 1)].(&encoding ==? 'utf-8' ?  '…' : '.')
+                                endif
+                              endif
+                            
+    4              0.000022   if has_key(l:heads, 'git') && !s:check_in_path()
+                                let b:airline_head = ''
+                              endif
+    4              0.000028   let minwidth = empty(get(b:, 'airline_hunks', '')) ? 14 : 7
+    4   0.000139   0.000046   let b:airline_head = airline#util#shorten(b:airline_head, 120, minwidth)
+    4              0.000008   return b:airline_head
+
+FUNCTION  <SNR>128_update_git_branch()
+Called 4 times
+Total time:   0.000186
+ Self time:   0.000153
+
+count  total (s)   self (s)
+    4              0.000012   if !s:has_fugitive
+                                let s:vcs_config['git'].branch = ''
+                                return
+                              endif
+                            
+    4   0.000078   0.000045   let name = fugitive#head(7)
+    4              0.000014   if empty(name)
+    4              0.000019     if has_key(s:git_dirs, a:path)
+    4              0.000027       let s:vcs_config['git'].branch = s:git_dirs[a:path]
+    4              0.000007       return
+                                endif
+                            
+                                let dir = fugitive#extract_git_dir(a:path)
+                                if empty(dir)
+                                  let name = ''
+                                else
+                                  try
+                                    let line = join(readfile(dir . '/HEAD'))
+                                    if strpart(line, 0, 16) == 'ref: refs/heads/'
+                                      let name = strpart(line, 16)
+                                    else
+                                      " raw commit hash
+                                      let name = strpart(line, 0, 7)
+                                    endif
+                                  catch
+                                    let name = ''
+                                  endtry
+                                endif
+                              endif
+                            
+                              let s:git_dirs[a:path] = name
+                              let s:vcs_config['git'].branch = name
+
+FUNCTION  airline#parts#mode()
+Called 4 times
+Total time:   0.000139
+ Self time:   0.000068
+
+count  total (s)   self (s)
+    4   0.000136   0.000065   return airline#util#shorten(get(w:, 'airline_current_mode', ''), 79, 1)
+
+FUNCTION  <SNR>128_update_untracked()
+Called 4 times
+Total time:   0.000567
+ Self time:   0.000482
+
+count  total (s)   self (s)
+    4              0.000118   let l:file = expand("%:p")
+    4              0.000042   if empty(l:file) || isdirectory(l:file)
+                                return
+                              endif
+                            
+    4              0.000012   let l:needs_update = 1
+   12              0.000040   for vcs in keys(s:vcs_config)
+    8              0.000045     if has_key(s:vcs_config[vcs].untracked, l:file)
+    4              0.000011       let l:needs_update = 0
+    4   0.000161   0.000076       call s:update_untracked_in_buffer_config(l:file, vcs)
+    4              0.000004     endif
+    8              0.000008   endfor
+                            
+    4              0.000008   if !l:needs_update
+    4              0.000006     return
+                              endif
+                            
+                              for vcs in keys(s:vcs_config)
+                                let l:config = s:vcs_config[vcs]
+                                if s:has_async
+                                  " Note that asynchronous update updates s:vcs_config only, and only
+                                  " s:update_untracked updates b:buffer_vcs_config. If s:vcs_config is
+                                  " invalidated again before s:update_untracked is called, then we lose the
+                                  " result of the previous call, i.e. the head string is not updated. It
+                                  " doesn't happen often in practice, so we let it be.
+                                  call s:get_vcs_untracked_async(l:config, l:file)
+                                else
+                                  let output = airline#util#system(l:config.cmd . shellescape(l:file))
+                                  if output =~? ('^' . l:config.untracked_mark)
+                                    let l:config.untracked[l:file] = get(g:, 'airline#extensions#branch#notexists', g:airline_symbols.notexists)
+                                  else
+                                    let l:config.untracked[l:file] = ''
+                                  endif
+                                  call s:update_untracked_in_buffer_config(l:file, vcs)
+                                endif
+                              endfor
+
+FUNCTION  <SNR>131_check_mixed_indent_file()
+Called 2 times
+Total time:   0.000381
+ Self time:   0.000381
+
+count  total (s)   self (s)
+    2              0.000011   if index(s:c_like_langs, &ft) > -1
+                                " for C-like languages: allow /** */ comment style with one space before the '*'
+                                let head_spc = '\v(^ +\*@!)'
+                              else
+    2              0.000003     let head_spc = '\v(^ +)'
+    2              0.000002   endif
+    2              0.000320   let indent_tabs = search('\v(^\t+)', 'nw')
+    2              0.000026   let indent_spc  = search(head_spc, 'nw')
+    2              0.000004   if indent_tabs > 0 && indent_spc > 0
+                                return printf("%d:%d", indent_tabs, indent_spc)
+                              else
+    2              0.000001     return ''
+                              endif
+
+FUNCTION  <SNR>131_ws_refresh()
+Called 2 times
+Total time:   0.000053
+ Self time:   0.000053
+
+count  total (s)   self (s)
+    2              0.000009   unlet! b:airline_whitespace_check
+    2              0.000025   if get(g:, 'airline_skip_empty_sections', 0)
+                                exe ':AirlineRefresh'
+                              endif
+
+FUNCTION  fugitive#head()
+Called 4 times
+Total time:   0.000033
+ Self time:   0.000033
+
+count  total (s)   self (s)
+    4              0.000022   if !exists('b:git_dir')
+    4              0.000009     return ''
+                              endif
+                            
+                              return s:repo().head(a:0 ? a:1 : 0)
+
+FUNCTION  <SNR>126_get_hunks_empty()
+Called 4 times
+Total time:   0.000009
+ Self time:   0.000009
+
+count  total (s)   self (s)
+    4              0.000009   return ''
+
+FUNCTION  airline#extensions#syntastic#get_warnings()
+Called 4 times
+Total time:   0.000624
+ Self time:   0.000074
+
+count  total (s)   self (s)
+    4   0.000590   0.000040   let errors = SyntasticStatuslineFlag()
+    4              0.000014   if strlen(errors) > 0
+                                return errors.(g:airline_symbols.space)
+                              endif
+    4              0.000004   return ''
+
+FUNCTION  airline#util#shorten()
+Called 12 times
+Total time:   0.000235
+ Self time:   0.000235
+
+count  total (s)   self (s)
+   12              0.000135   if winwidth(0) < a:winwidth && len(split(a:text, '\zs')) > a:minwidth
+                                return matchstr(a:text, '^.\{'.a:minwidth.'}').'…'
+                              else
+   12              0.000023     return a:text
+                              endif
+
+FUNCTION  <SNR>146_TagbarState()
+Called 8 times
+Total time:   0.000113
+ Self time:   0.000113
+
+count  total (s)   self (s)
+    8              0.000047     if !exists('t:tagbar_state')
+                                    let t:tagbar_state = s:state.New()
+                                endif
+                            
+    8              0.000019     return t:tagbar_state
+
+FUNCTION  <SNR>146_GetNearbyTag()
+Called 6 times
+Total time:   0.001787
+ Self time:   0.001616
+
+count  total (s)   self (s)
+    6              0.000017     if s:nearby_disabled
+                                    return {}
+                                endif
+                            
+    6   0.000219   0.000099     let fileinfo = s:TagbarState().getCurrent(a:forcecurrent)
+    6              0.000022     if empty(fileinfo)
+                                    return {}
+                                endif
+                            
+    6              0.000019     let typeinfo = fileinfo.typeinfo
+    6              0.000012     if a:0 > 0
+                                    let curline = a:1
+                                else
+    6              0.000024         let curline = line('.')
+    6              0.000008     endif
+    6              0.000013     let tag = {}
+                            
+                                " If a tag appears in a file more than once (for example namespaces in
+                                " C++) only one of them has a 'tline' entry and can thus be highlighted.
+                                " The only way to solve this would be to go over the whole tag list again,
+                                " making everything slower. Since this should be a rare occurence and
+                                " highlighting isn't /that/ important ignore it for now.
+   36              0.000353     for line in range(curline, 1, -1)
+   36              0.000176         if has_key(fileinfo.fline, line)
+    6              0.000025             let curtag = fileinfo.fline[line]
+    6   0.000100   0.000049             if a:all || typeinfo.getKind(curtag.fields.kind).stl
+    6              0.000018                 let tag = curtag
+    6              0.000009                 break
+                                        endif
+                                    endif
+   30              0.000027     endfor
+                            
+    6              0.000011     return tag
+
+FUNCTION  <SNR>146_AutoUpdate()
+Called 2 times
+Total time:   0.002785
+ Self time:   0.001145
+
+count  total (s)   self (s)
+    2   0.000090   0.000051     call s:debug('AutoUpdate called [' . a:fname . ']')
+                            
+                                " This file is being loaded due to a quickfix command like vimgrep, so
+                                " don't process it
+    2              0.000011     if exists('s:tagbar_qf_active')
+                                    return
+                                elseif exists('s:window_opening')
+                                    " This can happen if another plugin causes the active window to change
+                                    " with an autocmd during the initial Tagbar window creation. In that
+                                    " case InitWindow() hasn't had a chance to run yet and things can
+                                    " break. MiniBufExplorer does this, for example. Completely disabling
+                                    " autocmds at that point is also not ideal since for example
+                                    " statusline plugins won't be able to update.
+                                    call s:debug('Still opening window, stopping processing')
+                                    return
+                                endif
+                            
+                                " Get the filetype of the file we're about to process
+    2              0.000079     let bufnr = bufnr(a:fname)
+    2              0.000020     let ftype = getbufvar(bufnr, '&filetype')
+                            
+                                " Don't do anything if we're in the tagbar window
+    2              0.000008     if ftype == 'tagbar'
+                                    call s:debug('In Tagbar window, stopping processing')
+                                    return
+                                endif
+                            
+                                " Only consider the main filetype in cases like 'python.django'
+    2              0.000029     let sftype = get(split(ftype, '\.'), 0, '')
+    2   0.000060   0.000032     call s:debug("Vim filetype: '" . ftype . "', " . "sanitized filetype: '" . sftype . "'")
+                            
+                                " Don't do anything if the file isn't supported
+    2   0.000420   0.000043     if !s:IsValidFile(a:fname, sftype)
+                                    call s:debug('Not a valid file, stopping processing')
+                                    let s:nearby_disabled = 1
+                                    return
+                                endif
+                            
+    2              0.000005     let updated = 0
+                            
+                                " Process the file if it's unknown or the information is outdated.
+                                " Testing the mtime of the file is necessary in case it got changed
+                                " outside of Vim, for example by checking out a different version from a
+                                " VCS.
+    2   0.000052   0.000036     if s:known_files.has(a:fname)
+    2   0.000040   0.000022         let curfile = s:known_files.get(a:fname)
+                                    " if a:force || getbufvar(curfile.bufnr, '&modified') ||
+    2              0.000080         if a:force || empty(curfile) || curfile.ftype != sftype || (filereadable(a:fname) && getftime(a:fname) > curfile.mtime)
+                                        call s:debug('File data outdated, updating [' . a:fname . ']')
+                                        call s:ProcessFile(a:fname, sftype)
+                                        let updated = 1
+                                    else
+    2   0.000064   0.000036             call s:debug('File data seems up to date [' . a:fname . ']')
+    2              0.000002         endif
+    2              0.000008     elseif !s:known_files.has(a:fname)
+                                    call s:debug('New file, processing [' . a:fname . ']')
+                                    call s:ProcessFile(a:fname, sftype)
+                                    let updated = 1
+                                endif
+                            
+    2   0.000035   0.000018     let fileinfo = s:known_files.get(a:fname)
+                            
+                                " If we don't have an entry for the file by now something must have gone
+                                " wrong, so don't change the tagbar content
+    2              0.000009     if empty(fileinfo)
+                                    call s:debug('fileinfo empty after processing [' . a:fname . ']')
+                                    return
+                                endif
+                            
+                                " Display the tagbar content if the tags have been updated or a different
+                                " file is being displayed
+    2   0.000277   0.000241     if bufwinnr(s:TagbarBufName()) != -1 && !s:paused && (s:new_window || updated || (!empty(s:TagbarState().getCurrent(0)) && a:fname != s:TagbarState().getCurrent(0).fpath))
+                                    call s:RenderContent(fileinfo)
+                                endif
+                            
+                                " Call setCurrent after rendering so RenderContent can check whether the
+                                " same file is being redisplayed
+    2              0.000008     if !empty(fileinfo)
+    2   0.000054   0.000027         call s:debug('Setting current file [' . a:fname . ']')
+    2   0.000100   0.000055         call s:TagbarState().setCurrent(fileinfo)
+    2              0.000007         let s:nearby_disabled = 0
+    2              0.000002     endif
+                            
+    2   0.000760   0.000040     call s:HighlightTag(0)
+    2   0.000303   0.000043     call s:SetStatusLine()
+    2   0.000052   0.000023     call s:debug('AutoUpdate finished successfully')
+
+FUNCTION  airline#extensions#branch#get_head()
+Called 4 times
+Total time:   0.002577
+ Self time:   0.000148
+
+count  total (s)   self (s)
+    4   0.002485   0.000056   let head = airline#extensions#branch#head()
+    4              0.000026   let empty_message = get(g:, 'airline#extensions#branch#empty_message', '')
+    4              0.000025   let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
+    4              0.000034   return empty(head) ? empty_message : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
+
+FUNCTION  <SNR>128_update_hg_branch()
+Called 4 times
+Total time:   0.000150
+ Self time:   0.000150
+
+count  total (s)   self (s)
+    4              0.000010   if s:has_lawrencium
+                                let stl=lawrencium#statusline()
+                                if !empty(stl) && s:has_async
+                                  call s:get_mq_async('hg qtop', expand('%:p'))
+                                endif
+                                if exists("s:mq") && !empty(s:mq)
+                                  if stl is# 'default'
+                                    " Shorten default a bit
+                                    let stl='def'
+                                  endif
+                                  let stl.=' ['.s:mq.']'
+                                endif
+                                let s:vcs_config['mercurial'].branch = stl
+                              else
+    4              0.000017     let s:vcs_config['mercurial'].branch = ''
+    4              0.000005   endif
+
+FUNCTION  airline#extensions#hunks#get_hunks()
+Called 4 times
+Total time:   0.000666
+ Self time:   0.000353
+
+count  total (s)   self (s)
+    4              0.000021   if !get(w:, 'airline_active', 0)
+                                return ''
+                              endif
+                              " Cache vavlues, so that it isn't called too often
+    4              0.000102   if exists("b:airline_hunks") && get(b:,  'airline_changenr', 0) == changenr() && winwidth(0) == get(s:, 'airline_winwidth', 0) && get(b:, 'source_func', '') isnot# 's:get_hunks_signify' && get(b:, 'source_func', '') isnot# 's:get_hunks_gitgutter' && get(b:, 'source_func', '') isnot# 's:get_hunks_empty'
+                                return b:airline_hunks
+                              endif
+    4   0.000358   0.000045   let hunks = s:get_hunks()
+    4              0.000008   let string = ''
+    4              0.000014   if !empty(hunks)
+                                for i in [0, 1, 2]
+                                  if (s:non_zero_only == 0 && winwidth(0) > 100) || hunks[i] > 0
+                                    let string .= printf('%s%s ', s:hunk_symbols[i], hunks[i])
+                                  endif
+                                endfor
+                              endif
+    4              0.000013   let b:airline_hunks = string
+    4              0.000017   let b:airline_changenr = changenr()
+    4              0.000016   let s:airline_winwidth = winwidth(0)
+    4              0.000008   return string
+
+FUNCTION  SyntasticStatuslineFlag()
+Called 4 times
+Total time:   0.000550
+ Self time:   0.000053
+
+count  total (s)   self (s)
+    4   0.000549   0.000052     return g:SyntasticLoclist.current().getStatuslineFlag()
+
+FUNCTION  airline#util#prepend()
+Called 4 times
+Total time:   0.000072
+ Self time:   0.000072
+
+count  total (s)   self (s)
+    4              0.000017   if a:minwidth > 0 && winwidth(0) < a:minwidth
+                                return ''
+                              endif
+    4              0.000041   return empty(a:text) ? '' : a:text.s:spc.g:airline_right_alt_sep.s:spc
+
+FUNCTION  <SNR>146_HighlightTag()
+Called 2 times
+Total time:   0.000720
+ Self time:   0.000096
+
+count  total (s)   self (s)
+    2              0.000007     let tagline = 0
+                            
+    2              0.000008     let force = a:0 > 0 ? a:1 : 0
+                            
+    2              0.000004     if a:0 > 1
+                                    let tag = s:GetNearbyTag(1, 0, a:2)
+                                else
+    2   0.000644   0.000020         let tag = s:GetNearbyTag(1, 0)
+    2              0.000002     endif
+    2              0.000006     if !empty(tag)
+    2              0.000006         let tagline = tag.tline
+    2              0.000003     endif
+                            
+                                " Don't highlight the tag again if it's the same one as last time.
+                                " This prevents the Tagbar window from jumping back after scrolling with
+                                " the mouse.
+    2              0.000008     if !force && tagline == s:last_highlight_tline
+    2              0.000003         return
+                                else
+                                    let s:last_highlight_tline = tagline
+                                endif
+                            
+                                let tagbarwinnr = bufwinnr(s:TagbarBufName())
+                                if tagbarwinnr == -1
+                                    return
+                                endif
+                            
+                                if tagbarwinnr == winnr()
+                                    let in_tagbar = 1
+                                else
+                                    let in_tagbar = 0
+                                    let prevwinnr = winnr()
+                                    call s:goto_win('p', 1)
+                                    let pprevwinnr = winnr()
+                                    call s:goto_win(tagbarwinnr, 1)
+                                endif
+                            
+                                try
+                                    match none
+                            
+                                    " No tag above cursor position so don't do anything
+                                    if tagline == 0
+                                        return
+                                    endif
+                            
+                                    if g:tagbar_autoshowtag == 1 || a:openfolds
+                                        call s:OpenParents(tag)
+                                    endif
+                            
+                                    " Check whether the tag is inside a closed fold and highlight the parent
+                                    " instead in that case
+                                    let tagline = tag.getClosedParentTline()
+                            
+                                    " Parent tag line number is invalid, better don't do anything
+                                    if tagline <= 0
+                                        return
+                                    endif
+                            
+                                    " Go to the line containing the tag
+                                    execute tagline
+                            
+                                    " Make sure the tag is visible in the window
+                                    call winline()
+                            
+                                    let foldpat = '[' . s:icon_open . s:icon_closed . ' ]'
+                                    let pattern = '/^\%' . tagline . 'l\s*' . foldpat . '[-+# ]\zs[^( ]\+\ze/'
+                                    call s:debug("Highlight pattern: '" . pattern . "'")
+                                    if hlexists('TagbarHighlight') " Safeguard in case syntax highlighting is disabled
+                                        execute 'match TagbarHighlight ' . pattern
+                                    else
+                                        execute 'match Search ' . pattern
+                                    endif
+                                finally
+                                    if !in_tagbar
+                                        call s:goto_win(pprevwinnr, 1)
+                                        call s:goto_win(prevwinnr, 1)
+                                    endif
+                                    redraw
+                                endtry
+
+FUNCTIONS SORTED ON TOTAL TIME
+count  total (s)   self (s)  function
+    4   0.036716   0.016306  airline#extensions#whitespace#check()
+    2   0.019958             <SNR>131_check_mixed_indent()
+    2   0.002785   0.001145  <SNR>146_AutoUpdate()
+    4   0.002577   0.000148  airline#extensions#branch#get_head()
+    4   0.002429   0.000755  airline#extensions#branch#head()
+    4   0.001965   0.000146  airline#extensions#tagbar#currenttag()
+    4   0.001929   0.000135  bufferline#refresh_status()
+    4   0.001819   0.000366  tagbar#currenttag()
+    4   0.001794   0.000389  bufferline#get_echo_string()
+    6   0.001787   0.001616  <SNR>146_GetNearbyTag()
+    4   0.001405             <SNR>47_generate_names()
+    4   0.001014   0.000678  <SNR>128_update_branch()
+    2   0.000720   0.000096  <SNR>146_HighlightTag()
+    4   0.000666   0.000353  airline#extensions#hunks#get_hunks()
+    4   0.000624   0.000074  airline#extensions#syntastic#get_warnings()
+    4   0.000599             airline#check_mode()
+    4   0.000567   0.000482  <SNR>128_update_untracked()
+    4   0.000550   0.000053  SyntasticStatuslineFlag()
+    2   0.000381             <SNR>131_check_mixed_indent_file()
+    2   0.000377   0.000350  <SNR>146_IsValidFile()
+
+FUNCTIONS SORTED ON SELF TIME
+count  total (s)   self (s)  function
+    2              0.019958  <SNR>131_check_mixed_indent()
+    4   0.036716   0.016306  airline#extensions#whitespace#check()
+    6   0.001787   0.001616  <SNR>146_GetNearbyTag()
+    4              0.001405  <SNR>47_generate_names()
+    2   0.002785   0.001145  <SNR>146_AutoUpdate()
+    4   0.002429   0.000755  airline#extensions#branch#head()
+    4   0.001014   0.000678  <SNR>128_update_branch()
+    4              0.000599  airline#check_mode()
+    4   0.000567   0.000482  <SNR>128_update_untracked()
+    4   0.001794   0.000389  bufferline#get_echo_string()
+    2              0.000381  <SNR>131_check_mixed_indent_file()
+    4   0.001819   0.000366  tagbar#currenttag()
+   20              0.000360  airline#util#append()
+    4   0.000666   0.000353  airline#extensions#hunks#get_hunks()
+    2   0.000377   0.000350  <SNR>146_IsValidFile()
+    4              0.000325  109()
+    4   0.000313   0.000277  <SNR>126_get_hunks()
+   32              0.000276  airline#util#wrap()
+   12              0.000235  airline#util#shorten()
+    2   0.000260   0.000226  <SNR>146_SetStatusLine()
+
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.008  000.008: --- VIM STARTING ---
+000.553  000.545: Allocated generic buffers
+000.864  000.311: locale set
+000.869  000.005: clipboard setup
+000.879  000.010: window checked
+001.420  000.541: inits 1
+001.424  000.004: parsing arguments
+001.425  000.001: expanding arguments
+005.792  004.367: shell init
+006.220  000.428: Termcap init
+006.239  000.019: inits 2
+006.387  000.148: init highlight
+008.187  000.120  000.120: sourcing /Users/uranus/.vimrc.before
+009.790  000.093  000.093: sourcing /usr/local/share/vim/vim80/ftoff.vim
+011.427  000.342  000.342: sourcing /Users/uranus/.vim/bundle/vundle/autoload/vundle.vim
+012.780  000.643  000.643: sourcing /Users/uranus/.vim/bundle/vundle/autoload/vundle/config.vim
+081.561  072.733  071.655: sourcing /Users/uranus/.vimrc.bundles
+106.706  000.220  000.220: sourcing /Users/uranus/.vim/bundle/neosnippet/ftdetect/neosnippet.vim
+107.754  000.332  000.332: sourcing /Users/uranus/.vim/bundle/vim-twig/ftdetect/twig.vim
+108.873  000.392  000.392: sourcing /Users/uranus/.vim/bundle/vim-json/ftdetect/json.vim
+109.814  000.245  000.245: sourcing /Users/uranus/.vim/bundle/vim-less/ftdetect/less.vim
+111.033  000.522  000.522: sourcing /Users/uranus/.vim/bundle/vim-javascript/ftdetect/javascript.vim
+112.187  000.454  000.454: sourcing /Users/uranus/.vim/bundle/vim-jst/ftdetect/jst.vim
+112.964  000.273  000.273: sourcing /Users/uranus/.vim/bundle/vim-coffee-script/ftdetect/coffee.vim
+113.658  000.186  000.186: sourcing /Users/uranus/.vim/bundle/vim-haml/ftdetect/haml.vim
+114.068  000.053  000.053: sourcing /Users/uranus/.vim/bundle/rust.vim/ftdetect/rust.vim
+114.554  000.167  000.167: sourcing /Users/uranus/.vim/bundle/vim-markdown/ftdetect/markdown.vim
+114.962  000.091  000.091: sourcing /Users/uranus/.vim/bundle/vim-cucumber/ftdetect/cucumber.vim
+115.446  000.113  000.113: sourcing /Users/uranus/.vim/bundle/vim-toml/ftdetect/toml.vim
+116.024  000.153  000.153: sourcing /Users/uranus/.vim/bundle/salt-vim/ftdetect/sls.vim
+117.205  034.258  031.057: sourcing /usr/local/share/vim/vim80/filetype.vim
+119.036  000.092  000.092: sourcing /usr/local/share/vim/vim80/ftplugin.vim
+120.584  000.082  000.082: sourcing /usr/local/share/vim/vim80/indent.vim
+125.399  001.928  001.928: sourcing /usr/local/share/vim/vim80/syntax/syncolor.vim
+126.003  003.373  001.445: sourcing /usr/local/share/vim/vim80/syntax/synload.vim
+126.044  004.583  001.210: sourcing /usr/local/share/vim/vim80/syntax/syntax.vim
+204.324  000.214  000.214: sourcing /usr/local/share/vim/vim80/syntax/syncolor.vim
+205.524  000.196  000.196: sourcing /usr/local/share/vim/vim80/syntax/syncolor.vim
+206.578  000.196  000.196: sourcing /usr/local/share/vim/vim80/syntax/syncolor.vim
+208.132  004.714  004.108: sourcing /Users/uranus/.vim/colors/nolokai.vim
+208.726  000.025  000.025: sourcing /usr/local/share/vim/vim80/filetype.vim
+209.509  000.014  000.014: sourcing /usr/local/share/vim/vim80/ftplugin.vim
+210.264  000.014  000.014: sourcing /usr/local/share/vim/vim80/indent.vim
+211.601  034.205  029.438: sourcing /Users/uranus/.vimrc.local
+211.628  204.487  059.414: sourcing $HOME/.vimrc
+211.638  000.764: sourcing vimrc file(s)
+216.310  002.804  002.804: sourcing /Users/uranus/.vim/plugin/calendar.vim
+218.046  001.255  001.255: sourcing /Users/uranus/.vim/plugin/cecutil.vim
+219.034  000.650  000.650: sourcing /Users/uranus/.vim/plugin/matrix.vim
+220.986  001.635  001.635: sourcing /Users/uranus/.vim/plugin/python.vim
+221.282  000.078  000.078: sourcing /Users/uranus/.vim/plugin/python3.0.vim
+222.080  000.214  000.214: sourcing /Users/uranus/.vim/bundle/tlib_vim/plugin/02tlib.vim
+224.054  001.527  001.527: sourcing /Users/uranus/.vim/bundle/vim-surround/plugin/surround.vim
+225.541  000.988  000.988: sourcing /Users/uranus/.vim/bundle/vim-autoclose/plugin/autoclose.vim
+227.127  000.371  000.371: sourcing /Users/uranus/.vim/bundle/ctrlp.vim/autoload/ctrlp/mrufiles.vim
+227.534  001.464  001.093: sourcing /Users/uranus/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim
+228.466  000.076  000.076: sourcing /Users/uranus/.vim/bundle/ctrlp-funky/plugin/funky.vim
+229.803  000.839  000.839: sourcing /Users/uranus/.vim/bundle/sessionman.vim/plugin/sessionman.vim
+231.965  001.659  001.659: sourcing /Users/uranus/.vim/bundle/matchit.zip/plugin/matchit.vim
+234.697  001.065  001.065: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline.vim
+237.253  001.006  001.006: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/init.vim
+239.035  000.352  000.352: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/parts.vim
+240.789  008.147  005.724: sourcing /Users/uranus/.vim/bundle/vim-airline/plugin/airline.vim
+241.751  000.109  000.109: sourcing /Users/uranus/.vim/bundle/vim-airline-themes/plugin/airline-themes.vim
+244.097  000.260  000.260: sourcing /Users/uranus/.vim/bundle/vim-bufferline/autoload/bufferline.vim
+244.194  001.607  001.347: sourcing /Users/uranus/.vim/bundle/vim-bufferline/plugin/bufferline.vim
+248.153  003.143  003.143: sourcing /Users/uranus/.vim/bundle/undotree/plugin/undotree.vim
+249.999  000.639  000.639: sourcing /Users/uranus/.vim/bundle/vim-indent-guides/autoload/indent_guides.vim
+250.669  001.943  001.304: sourcing /Users/uranus/.vim/bundle/vim-indent-guides/plugin/indent_guides.vim
+251.647  000.360  000.360: sourcing /Users/uranus/.vim/bundle/restore_view.vim/plugin/restore_view.vim
+253.177  000.748  000.748: sourcing /Users/uranus/.vim/bundle/vim-signify/plugin/signify.vim
+256.624  002.713  002.713: sourcing /Users/uranus/.vim/bundle/vim-abolish/plugin/abolish.vim
+258.019  000.595  000.595: sourcing /Users/uranus/.vim/bundle/vim-over/plugin/over.vim
+262.064  001.972  001.972: sourcing /Users/uranus/.vim/bundle/vim-textobj-user/autoload/textobj/user.vim
+265.667  006.698  004.726: sourcing /Users/uranus/.vim/bundle/vim-textobj-indent/plugin/textobj/indent.vim
+267.058  000.062  000.062: sourcing /Users/uranus/.vim/bundle/wildfire.vim/autoload/wildfire/triggers.vim
+267.576  001.404  001.342: sourcing /Users/uranus/.vim/bundle/wildfire.vim/plugin/wildfire.vim
+268.553  000.498  000.498: sourcing /Users/uranus/.vim/bundle/vim-multiple-cursors/plugin/multiple_cursors.vim
+269.111  000.070  000.070: sourcing /Users/uranus/.vim/bundle/vim-litecorrect/plugin/litecorrect.vim
+269.768  000.130  000.130: sourcing /Users/uranus/.vim/bundle/vim-textobj-sentence/plugin/textobj/sentence.vim
+270.577  000.340  000.340: sourcing /Users/uranus/.vim/bundle/vim-textobj-quote/plugin/textobj/quote.vim
+271.496  000.382  000.382: sourcing /Users/uranus/.vim/bundle/vim-wordy/plugin/wordy.vim
+272.709  000.087  000.087: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/autoloclist.vim
+273.269  000.082  000.082: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/balloons.vim
+273.619  000.074  000.074: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/checker.vim
+274.077  000.066  000.066: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/cursor.vim
+274.460  000.062  000.062: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/highlighting.vim
+274.850  000.063  000.063: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/loclist.vim
+275.203  000.062  000.062: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/modemap.vim
+275.553  000.064  000.064: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/notifiers.vim
+275.953  000.074  000.074: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/registry.vim
+276.304  000.068  000.068: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/signs.vim
+278.714  001.294  001.294: sourcing /Users/uranus/.vim/bundle/syntastic/autoload/syntastic/util.vim
+288.730  000.085  000.085: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/autoloclist.vim
+288.849  000.077  000.077: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/balloons.vim
+289.546  000.660  000.660: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/checker.vim
+289.746  000.129  000.129: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/cursor.vim
+289.919  000.109  000.109: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/highlighting.vim
+290.698  000.740  000.740: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/loclist.vim
+290.876  000.126  000.126: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/modemap.vim
+291.007  000.092  000.092: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/notifiers.vim
+291.737  000.693  000.693: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/registry.vim
+292.181  000.401  000.401: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic/signs.vim
+294.913  018.298  013.892: sourcing /Users/uranus/.vim/bundle/syntastic/plugin/syntastic.vim
+302.257  006.890  006.890: sourcing /Users/uranus/.vim/bundle/vim-fugitive/plugin/fugitive.vim
+302.947  000.182  000.182: sourcing /Users/uranus/.vim/bundle/gist-vim/plugin/gist.vim
+313.059  009.479  009.479: sourcing /Users/uranus/.vim/bundle/nerdcommenter/plugin/NERD_commenter.vim
+314.348  000.703  000.703: sourcing /Users/uranus/.vim/bundle/vim-commentary/plugin/commentary.vim
+316.444  001.319  001.319: sourcing /Users/uranus/.vim/bundle/tabular/plugin/Tabular.vim
+319.750  002.450  002.450: sourcing /Users/uranus/.vim/bundle/tagbar/plugin/tagbar.vim
+320.994  000.239  000.239: sourcing /Users/uranus/.vim/bundle/neocomplcache/plugin/neocomplcache/buffer_complete.vim
+321.793  000.183  000.183: sourcing /Users/uranus/.vim/bundle/neocomplcache/plugin/neocomplcache/dictionary_complete.vim
+322.676  000.192  000.192: sourcing /Users/uranus/.vim/bundle/neocomplcache/plugin/neocomplcache/include_complete.vim
+323.168  000.138  000.138: sourcing /Users/uranus/.vim/bundle/neocomplcache/plugin/neocomplcache/syntax_complete.vim
+323.579  000.149  000.149: sourcing /Users/uranus/.vim/bundle/neocomplcache/plugin/neocomplcache/tags_complete.vim
+325.217  001.206  001.206: sourcing /Users/uranus/.vim/bundle/neocomplcache/plugin/neocomplcache.vim
+326.295  000.479  000.479: sourcing /Users/uranus/.vim/bundle/neosnippet/plugin/neosnippet.vim
+327.241  000.154  000.154: sourcing /Users/uranus/.vim/bundle/vim-snippets/plugin/vimsnippets.vim
+330.156  002.098  002.098: sourcing /Users/uranus/.vim/bundle/PIV/plugin/phpfolding.vim
+330.980  000.342  000.342: sourcing /Users/uranus/.vim/bundle/PIV/plugin/piv.vim
+332.469  000.867  000.867: sourcing /Users/uranus/.vim/bundle/vim-php-namespace/plugin/phpns.vim
+334.663  000.245  000.245: sourcing /Users/uranus/.vim/bundle/python-mode/autoload/pymode.vim
+335.279  000.033  000.033: sourcing /usr/local/share/vim/vim80/filetype.vim
+336.119  000.025  000.025: sourcing /usr/local/share/vim/vim80/ftplugin.vim
+338.758  000.034  000.034: sourcing /usr/local/share/vim/vim80/filetype.vim
+339.521  000.017  000.017: sourcing /usr/local/share/vim/vim80/ftplugin.vim
+339.968  006.732  006.378: sourcing /Users/uranus/.vim/bundle/python-mode/plugin/pymode.vim
+342.679  001.904  001.904: sourcing /Users/uranus/.vim/bundle/vim-rails/plugin/rails.vim
+343.498  000.157  000.157: sourcing /Users/uranus/.vim/bundle/rust.vim/plugin/rust.vim
+344.523  000.165  000.165: sourcing /Users/uranus/.vim/bundle/vim-cucumber-align-pipes/plugin/cucumber-align-pipes.vim
+345.593  000.123  000.123: sourcing /usr/local/share/vim/vim80/plugin/getscriptPlugin.vim
+346.502  000.523  000.523: sourcing /usr/local/share/vim/vim80/plugin/gzip.vim
+347.353  000.644  000.644: sourcing /usr/local/share/vim/vim80/plugin/logiPat.vim
+347.557  000.043  000.043: sourcing /usr/local/share/vim/vim80/plugin/manpager.vim
+348.127  000.363  000.363: sourcing /usr/local/share/vim/vim80/plugin/matchparen.vim
+349.206  000.924  000.924: sourcing /usr/local/share/vim/vim80/plugin/netrwPlugin.vim
+349.467  000.048  000.048: sourcing /usr/local/share/vim/vim80/plugin/rrhelper.vim
+349.805  000.058  000.058: sourcing /usr/local/share/vim/vim80/plugin/spellfile.vim
+350.251  000.226  000.226: sourcing /usr/local/share/vim/vim80/plugin/tarPlugin.vim
+350.788  000.290  000.290: sourcing /usr/local/share/vim/vim80/plugin/tohtml.vim
+351.212  000.230  000.230: sourcing /usr/local/share/vim/vim80/plugin/vimballPlugin.vim
+351.687  000.264  000.264: sourcing /usr/local/share/vim/vim80/plugin/zipPlugin.vim
+351.721  039.243: loading plugins
+351.824  000.103: loading packages
+355.275  000.969  000.969: sourcing /Users/uranus/.vim/bundle/tabular/autoload/tabular.vim
+357.800  004.821  003.852: sourcing /Users/uranus/.vim/bundle/tabular/after/plugin/TabularMaps.vim
+358.252  001.607: loading after plugins
+358.264  000.012: inits 3
+361.928  003.664: reading viminfo
+362.019  000.091: setting raw mode
+362.026  000.007: start termcap
+362.052  000.026: clearing screen
+364.742  000.747  000.747: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions.vim
+365.404  000.126  000.126: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/quickfix.vim
+366.015  000.102  000.102: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/netrw.vim
+366.664  000.152  000.152: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/ctrlp.vim
+367.269  000.105  000.105: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/undotree.vim
+367.949  000.181  000.181: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/hunks.vim
+368.611  000.150  000.150: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/tagbar.vim
+369.992  000.873  000.873: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/branch.vim
+370.610  000.115  000.115: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/bufferline.vim
+371.330  000.091  000.091: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/syntastic.vim
+372.360  000.545  000.545: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/whitespace.vim
+373.187  000.135  000.135: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/wordcount.vim
+377.713  000.222  000.222: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/section.vim
+379.452  000.965  000.965: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/highlighter.vim
+384.641  000.399  000.399: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/themes.vim
+385.076  001.703  001.304: sourcing /Users/uranus/.vim/bundle/vim-airline-themes/autoload/airline/themes/powerlineish.vim
+403.863  001.749  001.749: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/util.vim
+407.427  001.095  001.095: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/builder.vim
+409.172  000.320  000.320: sourcing /Users/uranus/.vim/bundle/vim-airline/autoload/airline/extensions/default.vim
+436.911  000.654  000.654: sourcing /Users/uranus/.vim/bundle/syntastic/autoload/syntastic/log.vim
+436.998  064.916: opening buffers
+437.762  000.764: BufEnter autocommands
+437.766  000.004: editing files in windows
+441.963  004.197: VimEnter autocommands
+441.966  000.003: before starting main loop
+443.710  000.249  000.249: sourcing /Users/uranus/.vim/bundle/vim-signify/autoload/sy.vim
+451.683  005.474  005.474: sourcing /Users/uranus/.vim/bundle/tagbar/autoload/tagbar.vim
+488.506  040.817: first screen update
+488.510  000.004: --- VIM STARTED ---

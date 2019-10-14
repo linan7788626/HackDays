@@ -1,0 +1,3 @@
+x(arcsec) y(arcsec) gmag rmag imag zmag sersic(bulge) BTg BTr BTi BTz size(Re_bulge) scale(disklength)  PA  axisratio
+    0.00    0.00 20.28 18.50 18.27 17.85 7.65 1.00 1.00 1.00 1.00    7.42    7.12   40.7 0.7
+    0.00    0.00 21.25 19.47 19.24 18.82 1.28 1.00 1.00 1.00 1.00    9.79    9.12  -76.4 0.7

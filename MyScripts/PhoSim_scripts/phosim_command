@@ -1,0 +1,4 @@
+./phosim examples/twinkles_g -c examples/nobackground 
+./phosim examples/twinkles_r -c examples/nobackground 
+./phosim examples/twinkles_z -c examples/nobackground 
+

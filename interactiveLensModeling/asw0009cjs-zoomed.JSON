@@ -1,0 +1,22 @@
+{
+    "name": "asw0009cjs-zoomed",
+    "src": "http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg",
+    "components": [
+        {
+            "plane": "source",
+            "size": 1.183,
+            "ell": 2,
+            "ang": 22.135,
+            "x": 0.068,
+            "y": 0.405
+        },
+        {
+            "plane": "lens",
+            "theta_e": 2.077,
+            "ell": 2,
+            "ang": 31.842,
+            "x": -0.54,
+            "y": 0.811
+        }
+    ]
+}

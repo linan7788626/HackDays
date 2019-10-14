@@ -1,0 +1,2 @@
+ds9 -rgb -red final_twinkles_z.fits -green final_twinkles_r.fits -blue final_twinkles_g.fits 
+

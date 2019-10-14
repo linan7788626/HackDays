@@ -1,0 +1,4 @@
+cd source
+gcc-7 -Wall -O2 -c -fPIC *.c -lcfitsio -lm -lgsl -lgslcblas -lfftw3
+gcc-7 -shared *.o -lgsl -lgslcblas -lfftw3 -lcfitsio -o ../lib/libglsg.so
+rm *.o

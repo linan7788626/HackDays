@@ -1,0 +1,271 @@
+import time
+et0 = time.time()
+
+import numpy as np
+import subprocess as sp
+from mycosmology import *
+import pyfits
+import sys
+
+#---------------------------------------------------------------------------------
+import getRedshiftBins as grb
+import crop
+import bz2
+
+dir_src="./"
+src_rsf=dir_src+"completeRedshifts.cat"
+src_fit=dir_src+"h_udf_masks.fits.bz2"
+dir_lens="lenses/"
+
+
+num_bins = 5
+
+
+if "bz2" in src_fit:
+		g = pyfits.open(bz2.BZ2File(src_fit))[0].data
+else:
+		g = pyfits.open(src_fit)[0].data
+
+
+def makeRedshiftSlices(x,y,deltaX,deltaY,numberPerBin):
+
+	subfieldArr = crop.getCroppedField(x,y,deltaX,deltaY,g)
+	idlist = grb.getIDs(subfieldArr)
+	
+	zlist,idzlist = grb.getRedshiftList(idlist,src_rsf)
+	medians,upperBounds = grb.getRedshiftBins(zlist,numberPerBin)
+	
+	outputImages = []
+	rows = subfieldArr.shape[0]
+	cols = subfieldArr.shape[1]
+	for i in range(len(upperBounds)):
+		outputImages.append(np.zeros([rows,cols]))
+	
+	
+	for i in range(len(upperBounds)):
+		toRemove = []
+		for j in range(len(idzlist)):
+			if float(idzlist[j][1]) < float(upperBounds[i]):
+				toRemove.append(j)
+				outputImages[i] = outputImages[i] + np.ma.masked_inside(subfieldArr,int(idzlist[j][0])-0.1,int(idzlist[j][0])+0.1).mask*subfieldArr
+	
+		correction = 0 #as we remove items, the index of later items will decrease
+		for j in toRemove:
+			del idzlist[j-correction]
+			correction+=1
+
+	
+	#hduOut = np.zeros((len(outputImages),rows,cols))
+	
+	#for i in range(len(outputImages)):
+		
+		#outName = dir_lens+halo_ind+"/sources/"+band_ind+"_" + str(medians[i]) + "_n.fits"
+		#source_out_name = band_ind+"_" + str(medians[i]) + "_n.fits"
+		#outName = out_dir+source_out_name
+		#hduOut[i,:] = pyfits.PrimaryHDU(outputImages[i])
+		#hduOut.writeto(outName,clobber=True)
+	
+	return outputImages,medians
+
+#---------------------------------------------------------------------------------
+import scipy.ndimage.interpolation as sn
+
+def mapping_on_kth_plane(img_in,yc1_in,yc2_in,xt1_in,xt2_in,dsi_in):
+
+	#img_in,header_tmp = pyfits.getdata(fits_in,0,header=True)
+
+	nsx, nsy = np.shape(img_in)
+
+	xt1_in = (xt1_in-yc1_in)/dsi_in+nsx/2.0
+	xt2_in = (xt2_in-yc2_in)/dsi_in+nsy/2.0
+	
+	xt1_tmp = np.array(xt1_in.flat)
+	xt2_tmp = np.array(xt2_in.flat)
+	
+	points = np.array([xt2_tmp,xt1_tmp])
+	img_out = sn.map_coordinates(img_in,points,order=1,mode='constant')
+	
+	return img_out
+
+def single_cluster_lensing(halo_ind,band_ind,Xc1_in,Xc2_in,numberPerBin):
+	
+	dir_dens="../lenses/"+halo_ind+"/data/"
+
+	input_kappa_sh="ls "+dir_dens+"|grep "+" "+halo_ind+"_"
+	input_kappa=sp.check_output(input_kappa_sh,shell=True)
+	input_kappa=input_kappa.rstrip()
+	input_dens=dir_dens+input_kappa
+	
+	array = input_kappa.split("_")
+	ZZL=np.double(array[2])
+	
+	input_args =" "+str(NCC)+" "+str(BSZ)+" "+str(ALX)+" "+str(ALY)+" "+str(ALZ)+" "+str(ZZL)+" "+str(ZS0) 
+	
+	cmd = dir_code+"cal_alphas "+input_dens+input_args
+	out_list_tmp = sp.check_output(cmd,shell=True)
+	
+	out_tmp = np.array(out_list_tmp.split(),dtype=np.float64)
+	out_tmp = out_tmp.reshape((NCC*NCC,4))
+	#------------------------------------------------------------------
+	pixels = np.zeros((NCC*NCC))
+	factor_z0 = Da(ZS0)/Da2(ZZL,ZS0)
+	SRC_arr,ZZS_arr= makeRedshiftSlices(Xc1_in,Xc2_in,500,500,numberPerBin)
+
+	for i in xrange(len(ZZS_arr)):
+		ZZS = ZZS_arr[i]
+		factor_z = Da2(ZZL,ZZS)/Da(ZZS)*factor_z0
+
+		SRC = np.array(SRC_arr[i])
+	
+		yi1 = out_tmp[:,0]-out_tmp[:,2]*factor_z*10.0
+		yi2 = out_tmp[:,1]-out_tmp[:,3]*factor_z*10.0
+	
+		pixels_tmp = mapping_on_kth_plane(SRC,YC1,YC2,yi1,yi2,DSI)
+	
+		pixels = pixels + pixels_tmp
+	
+	pixels = pixels.reshape((NCC,NCC))
+	
+	#---------------------------------------------------------------------------------
+	file_out = dir_imgs+band_ind+"/"+halo_ind+"_"+str(ZZL)+"_"+band_ind+"_combined.fits"
+	pyfits.writeto(file_out,pixels,clobber=True)
+
+	return out_tmp[:,0].reshape((NCC,NCC)),out_tmp[:,1].reshape((NCC,NCC)),pixels,ZZL
+#---------------------------------------------------------------------------------
+import scipy.ndimage.measurements as snm
+import scipy.ndimage as sn
+
+def measure_shape_data(xi1_in,xi2_in,pixels,halo_ind,band_ind,zl):
+	s = sn.generate_binary_structure(2,2)
+	labeled_image, num_features = snm.label(pixels,structure=s)
+	
+	npixels_save = np.zeros(num_features)
+	xc1_save = np.zeros(num_features)
+	xc2_save = np.zeros(num_features)
+	theta_save = np.zeros(num_features)
+	a_save = np.zeros(num_features)
+	b_save = np.zeros(num_features)
+	e_save = np.zeros(num_features)
+	
+	for i in range(num_features):
+		idx = labeled_image == (i+1)
+		com = labeled_image[idx]
+		cmx = np.max(com)
+		com = com/cmx
+	
+		if len(com) <=4 :
+			continue
+	
+		ctotal = np.sum(com)
+		xcom1 = xi1_in[idx]
+		xcom2 = xi2_in[idx]
+	
+		xc1 = np.sum(com*xcom1)/ctotal
+		xc2 = np.sum(com*xcom2)/ctotal
+	
+		U11   =  np.sum((xcom1-xc1)**2*com)/ctotal
+		U12   =  np.sum((xcom1-xc1)*(xcom2-xc2)*com)/ctotal
+		U22   =  np.sum((xcom2-xc2)**2*com)/ctotal
+	
+		theta = 0.5*np.arctan(2.0*U12/(U11-U22+1e-8))
+		a = np.sqrt(2.0*((U11+U22)+np.sqrt(((U11-U22)**2+4.0*U12*U12))))
+		b = np.sqrt(2.0*((U11+U22)-np.sqrt(((U11-U22)**2+4.0*U12*U12))))
+		e = np.sqrt(1.0-(b/a)**2.0)
+	
+		npixels_save[i] = len(com)
+		xc1_save[i] = xc1
+		xc2_save[i] = xc2
+		theta_save[i] = np.rad2deg(theta)
+		a_save[i] = a
+		b_save[i] = b
+		e_save[i] = e
+	
+		#print "------------",i ,"--------------"
+		#print "Npixels = ", len(com)
+		#print "Xc = ", xc1
+		#print "Yc = ", xc2
+		#print "Theta = ", np.rad2deg(theta)
+		#print "a = ", a
+		#print "b = ", b
+		#print "e = ", e
+		#print "-----------------------------"
+	
+		#print "Npixels, Xc, Yc, Theta, a, b, e"
+		#print len(com), xc1, xc2, np.rad2deg(theta), a, b, e
+	
+	file_out = dir_imgs+"shape_data/"+halo_ind+"_"+band_ind+"_"+str(zl)+"_shape.dat"
+	np.savetxt(file_out,np.transpose((npixels_save,xc1_save,xc2_save,theta_save,a_save,b_save,e_save)),fmt="%.6e")
+	return 0
+#---------------------------------------------------------------------------------
+NCC=2048
+BSZ=147.456
+DSL=0.0072 #arcsec
+ALX=0.0
+ALY=0.0
+ALZ=0.0
+#ZZL=0.2
+ZS0=10.0
+YC1=0.0
+YC2=0.0
+DSI=0.03
+
+#dir_dens="/project/projectdirs/hacc/rangel/proposal_dens/"
+#dir_base = "/global/project/projectdirs/hacc/nanli/new_for_gemini/"
+
+dir_base = "../"
+	
+dir_lens = dir_base+"lenses/"
+#dir_code = "/global/project/projectdirs/hacc/nanli/08192014/cal_alpha_cv/"
+dir_code = dir_base+"cal_alpha_cv/"
+dir_imgs = dir_base+"lensed_images/"
+#---------------------------------------------------------------------------------
+
+from mpi4py import MPI
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank()
+
+
+def main():
+	num_halos = int(sys.argv[1])
+
+	XC1=np.random.random_sample(num_halos)
+	XC2=np.random.random_sample(num_halos)
+
+	for i in xrange(rank,num_halos,size):
+		halo_ind = "halo_"+str(i)
+		source_out_dir = dir_lens+halo_ind+"/sources/"
+
+		#halo_in = "halo_"+str(i)
+		halo_in = "halo_23"
+		band_in = "m"
+		x1,x2,x3,zl=single_cluster_lensing(halo_in,band_in,XC1[i],XC2[i],10)
+		measure_shape_data(x1,x2,x3,halo_in,band_in,zl)
+
+if __name__ == "__main__":
+	main()
+
+#et2 = time.time()
+#print "for: %f s." % (et2-et1)
+#comm.Barrier()
+#MPI.Finalize()
+#comm.Disconnect()
+##---------------------------------------------------------------------------------
+#file_x_bin = dir_imgs+band_ind+"/"+halo_ind+"_"+str(ZZL)+"_"+band_ind+"_x.bin"
+#file_y_bin = dir_imgs+band_ind+"/"+halo_ind+"_"+str(ZZL)+"_"+band_ind+"_y.bin"
+#file_z_bin = dir_imgs+band_ind+"/"+halo_ind+"_"+str(ZZL)+"_"+band_ind+"_z.bin"
+#
+#idx = pixels > 0.0
+#savex = pixels[idx]
+#savey = pixels[idx]
+#savez = pixels[idx]
+#
+#
+#savex.tofile(file_x_bin)
+#savey.tofile(file_y_bin)
+#savez.tofile(file_z_bin)
+##---------------------------------------------------------------------------------
+#g_image,header_tmp = pyfits.getdata(file_in,0,header=True)
+#nnx1 = np.shape(g_image)[0]
+#nnx2 = np.shape(g_image)[1]
+#----------------------------------------------------------------------

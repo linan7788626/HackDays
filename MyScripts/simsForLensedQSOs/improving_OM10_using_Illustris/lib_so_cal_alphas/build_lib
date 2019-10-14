@@ -1,0 +1,5 @@
+cd source
+gcc -Wall -c *.c
+rm ../lib/libglsg.a
+ar -cvq ../lib/libglsg.a *.o
+rm *.o

@@ -1,0 +1,175 @@
+import sys
+from functools import partial
+from time import time
+
+from matplotlib.backend_bases import RendererBase
+from matplotlib.backends.backend_qt5 import (FigureCanvasQT,
+                                             show,
+                                             NavigationToolbar2QT)
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from matplotlib.figure import Figure
+
+from OpenGL import GL, GLU
+
+from PyQt5 import QtCore
+# from PyQt5.QtGui import (QColor, QImage, QMatrix4x4, QOpenGLShader, QOpenGLShaderProgram, QOpenGLTexture, QSurfaceFormat)
+from PyQt5.QtWidgets import QApplication, QMainWindow, QOpenGLWidget, QWidget
+
+
+import numpy as np
+
+from glutil import (check_gl_errors,
+                    render_path, render_marker)
+
+
+class OpenGLRenderer(RendererBase):
+
+    def __init__(self, w, h, dpi):
+        RendererBase.__init__(self)
+        self.width = w
+        self.height = h
+        self.dpi = dpi
+        self._draw_stack = []
+
+    def clear(self):
+        self._draw_stack = []
+
+    @check_gl_errors
+    def display(self):
+        for render_call in self._draw_stack:
+            render_call()
+
+    def draw_path(self, gc, path, transform, rgbFace=None):
+        self._draw_stack.append(partial(render_path,
+                                        gc, path, transform, rgbFace))
+
+    #def draw_image(self, gc, x, y, im):
+        #print 'an image'
+        #pass
+
+    #def draw_text(self, gc, x, y, s, prop, angle, ismath=False, mtext=None):
+    #    print 'text', s
+
+    #def get_text_width_height_descent(self, s, prop, ismath):
+    #    pass
+
+    #recommended
+    def draw_markers(self, gc, marker_path, marker_trans, path,
+                     trans, rgbFace=None):
+        self._draw_stack.append(partial(render_marker, gc, marker_path,
+                                        marker_trans, path,
+                                        trans, rgbFace))
+
+    #def draw_path_collection(self, gc, master_transform, paths,
+    #                         all_transforms, offsets, offsetTrans,
+    #                         facecolors, edgecolors,
+    #                         linewidths, linestyles, antialiaseds, urls,
+    #                         offset_position):
+    #   pass
+
+    #def draw_quad_mesh(self, gc, master_transform, meshWidth,
+    #                   meshHeight, coordinates, offsets, offsetTrans,
+    #                   facecolors, antialiased, edgecolors):
+    #    pass
+
+
+class FigureCanvasQTOpenGL(QOpenGLWidget, FigureCanvasQT):
+
+    def draw(self):
+        renderer = self.get_renderer()
+        self.figure.draw(self.renderer)
+        self.update()
+
+    def get_renderer(self):
+        l, b, w, h = self.figure.bbox.bounds
+        key = w, h, self.figure.dpi
+        try:
+            self._lastKey, self.renderer
+        except AttributeError:
+            need_new_renderer = True
+        else:
+            need_new_renderer = (self._lastKey != key)
+
+        if need_new_renderer:
+            self.renderer = OpenGLRenderer(w, h, self.figure.dpi)
+            self._lastKey = key
+        self.renderer.clear()
+        return self.renderer
+
+    def initializeGL(self):
+        GL.glEnable(GL.GL_BLEND)
+        GL.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA)
+        GL.glDisable(GL.GL_DEPTH_TEST)
+        GL.glEnable(GL.GL_VERTEX_PROGRAM_POINT_SIZE)
+        GL.glDisable(GL.GL_DITHER)
+        GL.glEnableClientState(GL.GL_VERTEX_ARRAY)
+        GL.glClearColor(0, 0, 0, 0)
+
+    def drawRectangle(self, rect):
+        pass
+
+    def paintGL(self):
+        t0 = time()
+        GL.glClear(GL.GL_COLOR_BUFFER_BIT)
+        self.renderer.display()
+        print 'FPS: %i' % (1. / (time() - t0))
+
+    def resizeGL(self, w, h):
+        print 'resize'
+        self.width = int(w)
+        self.height = int(h)
+        GL.glViewport(0, 0, self.width, self.height)
+        self._set_projections()
+
+    def _set_projections(self):
+        GL.glMatrixMode(GL.GL_PROJECTION)
+        GL.glLoadIdentity()
+        GL.glOrtho(0, self.width, 0, self.height, -10, 10)
+
+        GL.glMatrixMode(GL.GL_MODELVIEW)
+        GL.glLoadIdentity()
+        GLU.gluLookAt(0, 0, 4, 0, 0, 0, 0, 1, 0)
+
+    def __init__(self, figure):
+        FigureCanvasQT.__init__(self, figure)
+        # QOpenGLWidget.__init__(self)
+        self.drawRect = False
+        self.rect = []
+        self.blitbox = None
+        self.setAttribute(QtCore.Qt.WA_OpaquePaintEvent)
+
+    def drawRectangle(self, rect):
+        pass
+
+
+if __name__ == "__main__":
+
+    app = QApplication([''])
+    mw = QMainWindow()
+
+    f = Figure()
+
+    if '--agg' not in sys.argv:
+        fc = FigureCanvasQTOpenGL(f)
+    else:
+        fc = FigureCanvasQTAgg(f)
+
+    ax = f.add_subplot(111)
+
+    if '--size' in sys.argv:
+        sz = int(sys.argv[-1])
+    else:
+        sz = 10 ** 6
+
+    x = np.random.normal(0, 1, sz)
+    y = np.random.normal(0, 1, sz)
+    lines, = ax.plot(x, y, 'o', alpha=.1)
+    lines2, = ax.plot(x, np.sin(x), 'ro', alpha=.2)
+
+    tb = NavigationToolbar2QT(fc, None)
+
+    mw.setCentralWidget(fc)
+    mw.addToolBar(tb)
+
+    mw.show()
+    show.mainloop()
